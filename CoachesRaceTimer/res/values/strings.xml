@@ -3,5 +3,8 @@
 
     <string name="app_name">CoachesRaceTimer</string>
     <string name="hello_world">Hello world!</string>
+    <string name="event_1_string">Event 1</string>
+    <string name="event_2_string">Event 2</string>
+    <string name="title_activity_convert">ConvertActivity</string>
 
 </resources>
