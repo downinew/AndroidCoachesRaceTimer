@@ -6,5 +6,10 @@
     <string name="event_1_string">Event 1</string>
     <string name="event_2_string">Event 2</string>
     <string name="title_activity_convert">ConvertActivity</string>
-
+    <string name="StartButton">Start</string>
+    <string name="StopButton">Stop</string>
+    <string name="RaceTimerButton">Race Timer</string>
+	<string name="DualTimerButton">Dual Timer</string>
+	<string name="FieldEventsButton">Field Events</string>
+	<string name="UploadResultsButton">Upload Results</string>
 </resources>

@@ -14,19 +14,38 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int Button01=0x7f060006;
-        public static final int button1=0x7f060003;
-        public static final int button2=0x7f060002;
-        public static final int button3=0x7f060001;
-        public static final int button4=0x7f060000;
-        public static final int button5=0x7f060005;
-        public static final int textView1=0x7f060004;
+        public static final int ActivityButtonLayout=0x7f060001;
+        public static final int DualTimer=0x7f060005;
+        public static final int FieldEvents=0x7f060006;
+        public static final int RaceTimerButton=0x7f060004;
+        public static final int Runner1=0x7f060008;
+        public static final int Runner2=0x7f06000b;
+        public static final int Runner3=0x7f06000e;
+        public static final int Runner4=0x7f060011;
+        public static final int SecondaryStopButton=0x7f06000a;
+        public static final int SecondaryStopButton2=0x7f06000d;
+        public static final int SecondaryStopButton3=0x7f060010;
+        public static final int SecondaryStopButton4=0x7f060013;
+        public static final int StartButton=0x7f060002;
+        public static final int StopButton=0x7f060003;
+        public static final int UploadResultsButton=0x7f060007;
+        public static final int lapButton=0x7f060009;
+        public static final int lapButton2=0x7f06000c;
+        public static final int lapButton3=0x7f06000f;
+        public static final int lapButton4=0x7f060012;
+        public static final int textView1=0x7f060000;
     }
     public static final class layout {
         public static final int activity_convert=0x7f030000;
         public static final int activity_main=0x7f030001;
     }
     public static final class string {
+        public static final int DualTimerButton=0x7f040008;
+        public static final int FieldEventsButton=0x7f040009;
+        public static final int RaceTimerButton=0x7f040007;
+        public static final int StartButton=0x7f040005;
+        public static final int StopButton=0x7f040006;
+        public static final int UploadResultsButton=0x7f04000a;
         public static final int app_name=0x7f040000;
         public static final int event_1_string=0x7f040002;
         public static final int event_2_string=0x7f040003;
