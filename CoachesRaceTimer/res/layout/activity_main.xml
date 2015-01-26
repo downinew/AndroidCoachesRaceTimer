@@ -4,67 +4,247 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/button4"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/button3"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/button2"
-        android:text="Button" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="34dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:gravity="center"
+        android:text="00:00:00"
+        android:textAlignment="center"
+        android:textSize="72sp" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/button2"
-        android:text="Button" />
+        android:layout_alignParentBottom="true" >
 
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/StartButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/StartButton" />
+
+        <Button
+            android:id="@+id/StopButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:text="@string/StopButton" />
+    </LinearLayout>
+
+<!--     <LinearLayout
+        android:id="@+id/ActivityButtonLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" >
+
+        <Button
+            android:id="@+id/RaceTimerButton"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:text="@string/RaceTimerButton" />
+
+        <Button
+            android:id="@+id/DualTimer"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:text="@string/DualTimerButton" />
+
+        <Button
+            android:id="@+id/FieldEvents"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/FieldEventsButton" />
+
+        <Button
+            android:id="@+id/UploadResultsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/UploadResultsButton" />
+    </LinearLayout> -->
+
+    <LinearLayout
+        android:id="@+id/Runner1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/button2"
-        android:text="Button" />
+        android:layout_below="@+id/textView1" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+"
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Runner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Runner1" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Runner3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Runner2" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Runner4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Runner3" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Runner5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Runner4" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Runner6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Runner5" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    
 
 </RelativeLayout>

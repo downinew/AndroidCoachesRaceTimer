@@ -1,15 +1,100 @@
 package edu.rosehulman.coachesracetimer;
 
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener{
+	
+	int TIMER_START = 0;
+	int TIMER_UPDATE = 1;
+	int TIMER_STOP = 2;
+	StopWatch stopWatch;
+	Button startButton;
+	Button stopButton;    
+	TextView timeView;
+    Handler timerHandler = new Handler(){
 
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			if(msg.what == TIMER_START){
+				stopWatch.run();
+				timerHandler.sendEmptyMessageDelayed(TIMER_UPDATE, 100);
+			}else if(msg.what == TIMER_UPDATE){
+				timeView.setText("" + stopWatch.getTime());
+				timerHandler.sendEmptyMessageDelayed(TIMER_UPDATE, 100);
+			}else if(msg.what == TIMER_STOP){
+				timerHandler.removeMessages(TIMER_UPDATE);
+				stopWatch.interrupt();
+				timeView.setText("" + stopWatch.getTime());
+			}
+		}
+    	
+    };
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        timeView = (TextView) findViewById(R.id.textView1);
+        startButton = (Button) findViewById(R.id.StartButton);
+        stopButton = (Button) findViewById(R.id.StopButton);
+        startButton.setOnClickListener(this);
+        stopButton.setOnClickListener(this);
+        stopWatch = new StopWatch();
+        
     }
+     
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(startButton == v){
+			this.timerHandler.sendEmptyMessage(TIMER_START);
+		}else if(stopButton == v){
+			timerHandler.sendEmptyMessage(TIMER_STOP);
+		}
+	}
+		
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu){
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+    
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		super.onOptionsItemSelected(item);
+		int id=item.getItemId();
+		switch(id){
+		case R.id.race_timer:
+			return true;
+		case R.id.dual_timer:
+			Intent intent = new Intent(this,DualTimerActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.convert_events:
+			Intent intent2 = new Intent(this,ConvertActivity.class);
+			startActivity(intent2);
+			return true;
+		case R.id.upload_results:
+			//TODO: add this later
+			return true;
+		}
+		return false;
+	}
 }
