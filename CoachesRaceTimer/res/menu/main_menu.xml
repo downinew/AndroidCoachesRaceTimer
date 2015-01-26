@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/race_timer" android:title="@string/race_timer" android:showAsAction="always"></item>
+    <item android:id="@+id/dual_timer" android:title="@string/dual_timer" android:showAsAction="always"></item>
+    <item android:id="@+id/convert_events" android:title="@string/convert_events" android:showAsAction="always"></item>
+    <item android:id="@+id/upload_results" android:title="@string/upload_results" android:showAsAction="always"></item>
+
+</menu>

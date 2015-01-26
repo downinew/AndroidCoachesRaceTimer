@@ -6,10 +6,25 @@
     <string name="event_1_string">Event 1</string>
     <string name="event_2_string">Event 2</string>
     <string name="title_activity_convert">ConvertActivity</string>
+<<<<<<< HEAD
     <string name="StartButton">Start</string>
     <string name="StopButton">Stop</string>
     <string name="RaceTimerButton">Race Timer</string>
 	<string name="DualTimerButton">Dual Timer</string>
 	<string name="FieldEventsButton">Field Events</string>
 	<string name="UploadResultsButton">Upload Results</string>
+=======
+    <string name="event1_text">Event 1</string>
+    <string name="event2_text">Event 2</string>
+    <string name="default_time">00:00:000</string>
+    <string name="convert_text">Convert!</string>
+    <string name="title_activity_dual_timer">DualTimerActivity</string>
+    <string name="start_lap">Start/Lap</string>
+    <string name="stop_reset">Stop/Reset</string>
+    <string name="race_timer">Race Timer</string>
+    <string name="dual_timer">Dual Timer</string>
+    <string name="convert_events">Convert Events</string>
+    <string name="upload_results">Upload Results</string>
+
+>>>>>>> 19bd8289272200bb67a00c72869b70b90bd04852
 </resources>
