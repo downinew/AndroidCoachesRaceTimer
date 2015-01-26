@@ -1,22 +1,19 @@
 package edu.rosehulman.coachesracetimer;
 
-import android.content.Context;
-import android.widget.Chronometer;
 
 public class StopWatch extends Thread {
 	
+	//Possible Use for later
+	//private boolean isRunning = false;
+	private long startTime;
 	
-	public boolean isRunning = true;
-	Chronometer timer;
-	private Context context;
-	
-	
-	public StopWatch(Context context){
-		this.context = context;
+	public StopWatch(){
+		
 	}
 	
-	public long returnTime(){
-		return timer.getBase();
+	public long getTime(){
+		Long currentTime = System.nanoTime();
+		return (currentTime - startTime)/1000000;
 	}
 	
 	
@@ -24,22 +21,21 @@ public class StopWatch extends Thread {
 	public void run() {
 		// TODO Auto-generated method stub
 		super.run();
+		startTime = System.nanoTime();
+		
 	}
 
 	@Override
 	public synchronized void start() {
 		// TODO Auto-generated method stub
 		super.start();
-		timer = new Chronometer(this.context);
-		timer.start();
+		
 	}
 	
 	@Override
 	public void interrupt() {
 		// TODO Auto-generated method stub
-		super.interrupt();
-		timer.stop();
-		
+		super.interrupt();		
 	}
 
 	

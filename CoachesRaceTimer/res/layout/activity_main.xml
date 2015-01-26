@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ActivityButtonLayout" >
+        android:layout_alignParentBottom="true" >
 
         <Button
             android:id="@+id/StartButton"
@@ -38,7 +38,7 @@
             android:text="@string/StopButton" />
     </LinearLayout>
 
-    <LinearLayout
+<!--     <LinearLayout
         android:id="@+id/ActivityButtonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/UploadResultsButton" />
-    </LinearLayout>
+    </LinearLayout> -->
 
     <LinearLayout
         android:id="@+id/Runner1"
@@ -182,6 +182,64 @@
 
         <Button
             android:id="@+id/SecondaryStopButton4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Runner5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Runner4" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Runner6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Runner5" >
+
+        <TextView
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:text="single list item" >
+
+        </TextView>
+
+        <Button
+            android:id="@+id/lapButton6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lap 0" />
+
+        <Button
+            android:id="@+id/SecondaryStopButton6"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

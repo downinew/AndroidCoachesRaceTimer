@@ -14,12 +14,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity  implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener{
 	
 	int TIMER_START = 0;
 	int TIMER_UPDATE = 1;
 	int TIMER_STOP = 2;
-	StopWatch timer;
+	StopWatch stopWatch;
 	Button startButton;
 	Button stopButton;    
 	TextView timeView;
@@ -30,15 +30,15 @@ public class MainActivity extends Activity  implements OnClickListener{
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
 			if(msg.what == TIMER_START){
-				timer.start();
+				stopWatch.run();
 				timerHandler.sendEmptyMessageDelayed(TIMER_UPDATE, 100);
 			}else if(msg.what == TIMER_UPDATE){
-				timeView.setText("" + timer.returnTime());
+				timeView.setText("" + stopWatch.getTime());
 				timerHandler.sendEmptyMessageDelayed(TIMER_UPDATE, 100);
 			}else if(msg.what == TIMER_STOP){
 				timerHandler.removeMessages(TIMER_UPDATE);
-				timer.interrupt();;
-				timeView.setText("" + timer.returnTime());
+				stopWatch.interrupt();
+				timeView.setText("" + stopWatch.getTime());
 			}
 		}
     	
@@ -54,16 +54,10 @@ public class MainActivity extends Activity  implements OnClickListener{
         stopButton = (Button) findViewById(R.id.StopButton);
         startButton.setOnClickListener(this);
         stopButton.setOnClickListener(this);
-        
-        timer = new StopWatch(this);
+        stopWatch = new StopWatch();
         
     }
-    
-    
-    public void createTimerThread(){
-    }
-    
-    
+     
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
