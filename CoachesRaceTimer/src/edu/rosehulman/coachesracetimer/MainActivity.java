@@ -4,18 +4,15 @@ package edu.rosehulman.coachesracetimer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-=======
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
->>>>>>> 19bd8289272200bb67a00c72869b70b90bd04852
 
 public class MainActivity extends Activity  implements OnClickListener{
 	
@@ -66,7 +63,6 @@ public class MainActivity extends Activity  implements OnClickListener{
     public void createTimerThread(){
     }
     
-<<<<<<< HEAD
     
 	@Override
 	public void onClick(View v) {
@@ -76,9 +72,8 @@ public class MainActivity extends Activity  implements OnClickListener{
 		}else if(stopButton == v){
 			timerHandler.sendEmptyMessage(TIMER_STOP);
 		}
+	}
 		
-		
-=======
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
 		super.onCreateOptionsMenu(menu);
@@ -107,6 +102,5 @@ public class MainActivity extends Activity  implements OnClickListener{
 			return true;
 		}
 		return false;
->>>>>>> 19bd8289272200bb67a00c72869b70b90bd04852
 	}
 }
