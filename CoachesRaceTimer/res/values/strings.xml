@@ -10,5 +10,12 @@
     <string name="event2_text">Event 2</string>
     <string name="default_time">00:00:000</string>
     <string name="convert_text">Convert!</string>
+    <string name="title_activity_dual_timer">DualTimerActivity</string>
+    <string name="start_lap">Start/Lap</string>
+    <string name="stop_reset">Stop/Reset</string>
+    <string name="race_timer">Race Timer</string>
+    <string name="dual_timer">Dual Timer</string>
+    <string name="convert_events">Convert Events</string>
+    <string name="upload_results">Upload Results</string>
 
 </resources>
