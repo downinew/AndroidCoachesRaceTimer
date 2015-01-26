@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="events">
+        <item >55m</item>
+        <item >60m</item>
+        <item >55m hurdles</item>
+        <item >60m hurdles</item>
+        <item >100m</item>
+        <item >100m hurdles</item>
+        <item >110m hurdles</item>
+        <item >200m</item>
+        <item >400m</item>
+        <item >800m</item>
+        <item >1000m</item>
+        <item >1200m</item>
+        <item >1600m</item>
+        <item >Mile</item>
+        <item >2000m steeplechase</item>
+        <item >3000m</item>
+        <item >3000m steeplechase</item>
+        <item >3200m</item>
+        <item >5000m</item>
+        <item >6000m</item>
+        <item >8000m</item>
+        <item >10,000m</item>
+        <item >15,000m</item>
+        <item >Half-marathon</item>
+        <item >Marathon</item>
+    </string-array>
+    
+</resources>

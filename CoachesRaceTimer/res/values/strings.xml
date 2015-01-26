@@ -6,5 +6,9 @@
     <string name="event_1_string">Event 1</string>
     <string name="event_2_string">Event 2</string>
     <string name="title_activity_convert">ConvertActivity</string>
+    <string name="event1_text">Event 1</string>
+    <string name="event2_text">Event 2</string>
+    <string name="default_time">00:00:000</string>
+    <string name="convert_text">Convert!</string>
 
 </resources>
