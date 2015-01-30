@@ -4,8 +4,6 @@ package edu.rosehulman.coachesracetimer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,34 +13,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity implements OnClickListener{
-	
-	int TIMER_START = 0;
-	int TIMER_UPDATE = 1;
-	int TIMER_STOP = 2;
 	StopWatch stopWatch;
 	Button startButton;
 	Button stopButton;    
 	TextView timeView;
-    Handler timerHandler = new Handler(){
-
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-			if(msg.what == TIMER_START){
-				stopWatch.run();
-				timerHandler.sendEmptyMessageDelayed(TIMER_UPDATE, 100);
-			}else if(msg.what == TIMER_UPDATE){
-				timeView.setText("" + stopWatch.getTime());
-				timerHandler.sendEmptyMessageDelayed(TIMER_UPDATE, 100);
-			}else if(msg.what == TIMER_STOP){
-				timerHandler.removeMessages(TIMER_UPDATE);
-				stopWatch.interrupt();
-				timeView.setText("" + stopWatch.getTime());
-			}
-		}
-    	
-    };
+    TimerHandler timerHandler;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +30,16 @@ public class MainActivity extends Activity implements OnClickListener{
         startButton.setOnClickListener(this);
         stopButton.setOnClickListener(this);
         stopWatch = new StopWatch();
-        
+        timerHandler = new TimerHandler(stopWatch,timeView);
     }
      
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(startButton == v){
-			this.timerHandler.sendEmptyMessage(TIMER_START);
+			this.timerHandler.sendEmptyMessage(TimerHandler.TIMER_START);
 		}else if(stopButton == v){
-			timerHandler.sendEmptyMessage(TIMER_STOP);
+			timerHandler.sendEmptyMessage(TimerHandler.TIMER_STOP);
 		}
 	}
 		

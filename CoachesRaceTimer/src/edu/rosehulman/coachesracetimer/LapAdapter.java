@@ -1,5 +1,7 @@
 package edu.rosehulman.coachesracetimer;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,12 @@ public class LapAdapter extends BaseAdapter {
 
 	private Context mContext;
 	private int mNumRows;
+	private ArrayList<Long> mTimes;
 	
 	public LapAdapter(Context context){
 		mContext=context;
 		mNumRows=0;
+		mTimes = new ArrayList<Long>();
 	}
 	
 	@Override
@@ -21,11 +25,13 @@ public class LapAdapter extends BaseAdapter {
 		return mNumRows;
 	}
 	
-	public void addView(){
+	public void addView(long time){
+		mTimes.add(time);
 		mNumRows++;
 	}
 	
 	public void reset(){
+		mTimes = new ArrayList<Long>();
 		mNumRows=0;
 	}
 
@@ -49,12 +55,12 @@ public class LapAdapter extends BaseAdapter {
 		}else{
 			view=(TextView) convertView;
 		}
-		view.setText("Lap "+position+": "+getTime());
+		view.setText("Lap "+position+": "+getTime(position));
 		return view;
 	}
 	
-	private String getTime(){
-		return "";
+	private long getTime(int index){
+		return mTimes.get(index);
 	}
 
 }
