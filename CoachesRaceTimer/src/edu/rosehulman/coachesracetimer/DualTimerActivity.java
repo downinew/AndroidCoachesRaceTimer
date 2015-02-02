@@ -26,8 +26,8 @@ public class DualTimerActivity extends Activity {
 		setContentView(R.layout.activity_dual_timer);
 		ListView listView1 = (ListView) findViewById(R.id.listView1);
 		ListView listView2 = (ListView) findViewById(R.id.listView2);
-		TextView textView1 = (TextView) findViewById(R.id.event1);
-		TextView textView2 = (TextView) findViewById(R.id.event2);
+		final TextView textView1 = (TextView) findViewById(R.id.event1);
+		final TextView textView2 = (TextView) findViewById(R.id.event2);
 		Button lapButton1 = (Button) findViewById(R.id.start1);
 		Button lapButton2 = (Button) findViewById(R.id.start2);
 		Button stopButton1 = (Button) findViewById(R.id.stop1);
@@ -36,8 +36,8 @@ public class DualTimerActivity extends Activity {
 		final LapAdapter lapAdapter2 = new LapAdapter(this);
 		watch1 = new StopWatch();
 		watch2 = new StopWatch();
-		handler1 = new TimerHandler(watch1,textView1);
-		handler2 = new TimerHandler(watch2,textView2);
+		handler1 = new TimerHandler(watch1, textView1);
+		handler2 = new TimerHandler(watch2, textView2);
 		didStart1 = false;
 		didStart2 = false;
 		listView1.setAdapter(lapAdapter1);
@@ -52,6 +52,7 @@ public class DualTimerActivity extends Activity {
 				} else {
 					handler1.sendEmptyMessage(TimerHandler.TIMER_START);
 					watch1.start();
+					lapAdapter1.notifyStarted();
 					didStart1 = true;
 				}
 			}
@@ -66,6 +67,7 @@ public class DualTimerActivity extends Activity {
 				} else {
 					handler2.sendEmptyMessage(TimerHandler.TIMER_START);
 					watch2.start();
+					lapAdapter2.notifyStarted();
 					didStart2 = true;
 				}
 			}
@@ -76,14 +78,16 @@ public class DualTimerActivity extends Activity {
 			public void onClick(View v) {
 				if (didStart1) {
 					handler1.sendEmptyMessage(TimerHandler.TIMER_STOP);
-					didStart1=false;
+					didStart1 = false;
 					lapAdapter1.addView(watch1.getLap());
 					lapAdapter1.addView(watch1.getTime());
+					lapAdapter1.notifyStopped();
 					lapAdapter1.notifyDataSetChanged();
 				} else {
 					watch1 = new StopWatch();
 					lapAdapter1.reset();
 					lapAdapter1.notifyDataSetChanged();
+					textView1.setText(getString(R.string.default_time));
 				}
 			}
 		});
@@ -91,16 +95,18 @@ public class DualTimerActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if(didStart2){
+				if (didStart2) {
 					handler2.sendEmptyMessage(TimerHandler.TIMER_STOP);
 					didStart2 = false;
 					lapAdapter2.addView(watch1.getLap());
 					lapAdapter2.addView(watch2.getTime());
+					lapAdapter2.notifyStopped();
 					lapAdapter2.notifyDataSetChanged();
-				}else{
+				} else {
 					watch2 = new StopWatch();
 					lapAdapter2.reset();
 					lapAdapter2.notifyDataSetChanged();
+					textView2.setText(getString(R.string.default_time));
 				}
 			}
 		});
