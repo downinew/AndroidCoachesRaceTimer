@@ -44,3 +44,5 @@ Temporary Items
 *.class
 *.dex
 *.ap_
+*.dex
+*.ap_

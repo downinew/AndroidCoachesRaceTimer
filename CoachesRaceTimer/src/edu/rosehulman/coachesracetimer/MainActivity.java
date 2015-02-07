@@ -1,11 +1,15 @@
 package edu.rosehulman.coachesracetimer;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +21,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	Button stopButton;
 	TextView timeView;
 	TimerHandler timerHandler;
+	ListView athleteList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +35,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		stopButton.setOnClickListener(this);
 		stopWatch = new StopWatch();
 		timerHandler = new TimerHandler(stopWatch, timeView);
+		athleteList = (ListView) findViewById(R.id.athleteList);
+		ArrayList<String> athleteArray = new ArrayList<String>();
+		athleteArray.add("Test Athlete 1");
+		athleteArray.add("Test Athlete 2");
+		athleteArray.add("Test Athlete 3");
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				R.layout.athlete_view, R.id.athleteNameText, athleteArray);
+		athleteList.setAdapter(adapter);
 	}
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		if (startButton == v) {
 			this.timerHandler.sendEmptyMessage(TimerHandler.TIMER_START);
 		} else if (stopButton == v) {
