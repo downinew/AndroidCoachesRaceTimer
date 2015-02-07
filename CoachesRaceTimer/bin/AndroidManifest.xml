@@ -29,7 +29,10 @@
         <activity
             android:name=".DualTimerActivity"
             android:label="@string/title_activity_dual_timer" >
-            
+        </activity>
+        <activity
+            android:name=".NewAthleteActivity"
+            android:label="@string/title_activity_new_athlete" >
         </activity>
     </application>
 

@@ -13,7 +13,8 @@
             android:layout_alignBaseline="@+id/lapButton"
             android:layout_alignBottom="@+id/lapButton"
             android:layout_alignParentLeft="true"
-            android:text="single list item" />
+            android:text="single list item"
+            android:textColor="#fff" />
 
         <Button
             android:id="@+id/SecondaryStopButton"

@@ -23,5 +23,12 @@
     <string name="dual_timer">Dual Timer</string>
     <string name="convert_events">Convert Events</string>
     <string name="upload_results">Upload Results</string>
+    <string name="add_athlete">Add Athlete</string>
+    <string name="title_activity_new_athlete">NewAthleteActivity</string>
+    <string name="athlete_name">Athlete Name</string>
+    <string name="create_new_athlete">Create New Athlete</string>
+    <string name="first_and_last_name">First and Last Name</string>
+    <string name="athlete_ranking">Athlete Ranking</string>
+    <string name="add_athlete_to_team">Add Athlete to Team</string>
 
 </resources>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -16,12 +17,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity implements OnClickListener {
+	private static final String CRT = "CRT";
+	private static final int REQUEST_CODE_NEW_ATHLETE = 1;
+	public static final String KEY_NAME_STRING = "KEY_NAME_STRING";
+	public static final String KEY_RANK_STRING = "KEY_RANK_STRING";
 	StopWatch stopWatch;
 	Button startButton;
 	Button stopButton;
+	Button addAthleteButton;
 	TextView timeView;
 	TimerHandler timerHandler;
 	ListView athleteList;
+	ArrayList<String> athleteArray;
+	ArrayAdapter<String> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +39,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		timeView = (TextView) findViewById(R.id.textView1);
 		startButton = (Button) findViewById(R.id.StartButton);
 		stopButton = (Button) findViewById(R.id.StopButton);
+		addAthleteButton = (Button) findViewById(R.id.addAthButton);
 		startButton.setOnClickListener(this);
 		stopButton.setOnClickListener(this);
+		addAthleteButton.setOnClickListener(this);
 		stopWatch = new StopWatch();
 		timerHandler = new TimerHandler(stopWatch, timeView);
 		athleteList = (ListView) findViewById(R.id.athleteList);
-		ArrayList<String> athleteArray = new ArrayList<String>();
-		athleteArray.add("Test Athlete 1");
-		athleteArray.add("Test Athlete 2");
-		athleteArray.add("Test Athlete 3");
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		athleteArray = new ArrayList<String>();
+		for(int i=1;i<15;i++){
+			athleteArray.add("Test Athlete "+i);
+		}
+		adapter = new ArrayAdapter<String>(this,
 				R.layout.athlete_view, R.id.athleteNameText, athleteArray);
 		athleteList.setAdapter(adapter);
 	}
@@ -48,9 +58,38 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (startButton == v) {
+			Log.d(CRT, "Start");
 			this.timerHandler.sendEmptyMessage(TimerHandler.TIMER_START);
 		} else if (stopButton == v) {
+			Log.d(CRT, "Stop");
 			timerHandler.sendEmptyMessage(TimerHandler.TIMER_STOP);
+		} else if (addAthleteButton == v) {
+			Log.d(CRT, "addAthleteButton");
+			Intent newAthleteIntent = new Intent(this, NewAthleteActivity.class);
+			startActivityForResult(newAthleteIntent, REQUEST_CODE_NEW_ATHLETE);
+		}
+		Log.d(CRT, "TEST");
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case REQUEST_CODE_NEW_ATHLETE:
+			if (resultCode == Activity.RESULT_OK) {
+				Log.d(CRT, "Result ok!");
+				int size = athleteArray.size();
+				int rank = data.getIntExtra(KEY_RANK_STRING,
+						size);
+				String name = data.getStringExtra(KEY_NAME_STRING);
+				athleteArray.add((rank-1 <= size ? rank-1 : size), name);
+				adapter.notifyDataSetChanged();
+			} else {
+				Log.d(CRT, "Result not okay. User hit back w/o a button");
+			}
+			break;
+		default:
+			Log.d(CRT, "Unknown result code");
+			break;
 		}
 	}
 
