@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,16 +12,20 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity implements OnClickListener {
-	private static final String CRT = "CRT";
+	public static final String CRT = "CRT";
 	private static final int REQUEST_CODE_NEW_ATHLETE = 1;
 	public static final String KEY_NAME_STRING = "KEY_NAME_STRING";
 	public static final String KEY_RANK_STRING = "KEY_RANK_STRING";
+	private AthleteDataAdapter mAthleteDataAdapter;
+	private SimpleCursorAdapter mCursorAdapter;
+
 	StopWatch stopWatch;
 	Button startButton;
 	Button stopButton;
@@ -28,8 +33,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	TextView timeView;
 	TimerHandler timerHandler;
 	ListView athleteList;
-	ArrayList<String> athleteArray;
-	ArrayAdapter<String> adapter;
+//	ArrayList<String> athleteArray;
+//	ArrayAdapter<String> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +51,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		stopWatch = new StopWatch();
 		timerHandler = new TimerHandler(stopWatch, timeView);
 		athleteList = (ListView) findViewById(R.id.athleteList);
-		athleteArray = new ArrayList<String>();
-		for(int i=1;i<15;i++){
-			athleteArray.add("Test Athlete "+i);
-		}
-		adapter = new ArrayAdapter<String>(this,
-				R.layout.athlete_view, R.id.athleteNameText, athleteArray);
-		athleteList.setAdapter(adapter);
+		mAthleteDataAdapter = new AthleteDataAdapter(this);
+		mAthleteDataAdapter.open();
+		
+		Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
+		String[] fromColumns = new String[] {AthleteDataAdapter.KEY_NAME};
+		int[] toTextViews = new int[]{R.id.athleteNameText};
+		mCursorAdapter = new SimpleCursorAdapter(this,R.layout.athlete_view,cursor,fromColumns,toTextViews,0);
+		athleteList.setAdapter(mCursorAdapter);
+		
+//		athleteArray = new ArrayList<String>();
+//		for(int i=1;i<15;i++){
+//			athleteArray.add("Test Athlete "+i);
+//		}
+//		adapter = new ArrayAdapter<String>(this,
+//				R.layout.athlete_view, R.id.athleteNameText, athleteArray);
+//		athleteList.setAdapter(adapter);
 	}
 
 	@Override
@@ -77,12 +91,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		case REQUEST_CODE_NEW_ATHLETE:
 			if (resultCode == Activity.RESULT_OK) {
 				Log.d(CRT, "Result ok!");
-				int size = athleteArray.size();
-				int rank = data.getIntExtra(KEY_RANK_STRING,
-						size);
-				String name = data.getStringExtra(KEY_NAME_STRING);
-				athleteArray.add((rank-1 <= size ? rank-1 : size), name);
-				adapter.notifyDataSetChanged();
+				Athlete a = new Athlete();
+				a.setRank(data.getIntExtra(KEY_RANK_STRING,0));
+				a.setName(data.getStringExtra(KEY_NAME_STRING));
+				mAthleteDataAdapter.addAthlete(a);
+				Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
+				mCursorAdapter.changeCursor(cursor);
+//				int size = athleteArray.size();
+//				int rank = data.getIntExtra(KEY_RANK_STRING,
+//						size);
+//				String name = data.getStringExtra(KEY_NAME_STRING);
+//				athleteArray.add((rank-1 <= size ? rank-1 : size), name);
+//				adapter.notifyDataSetChanged();
 			} else {
 				Log.d(CRT, "Result not okay. User hit back w/o a button");
 			}
@@ -122,4 +142,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		return false;
 	}
+	
+	private Athlete getAthlete(long id){
+		return mAthleteDataAdapter.getAthlete(id);
+	}
+	
+	private void editAthlete(Athlete a){
+		mAthleteDataAdapter.updateAthlete(a);
+		Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
+		mCursorAdapter.changeCursor(cursor);
+	}
+	
+	private void removeAthlete(long id){
+		mAthleteDataAdapter.removeAthlete(id);
+		Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
+		mCursorAdapter.changeCursor(cursor);
+	}
+	
 }
