@@ -98,8 +98,9 @@ public class ConvertActivity extends Activity {
 			return true;
 		case R.id.convert_events:
 			return true;
-		case R.id.upload_results:
-			// TODO: add this later
+		case R.id.manage_athletes:
+			Intent intent3 = new Intent(this,AthletesView.class);
+			startActivity(intent3);
 			return true;
 		}
 		return false;

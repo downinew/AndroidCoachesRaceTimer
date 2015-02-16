@@ -30,5 +30,8 @@
     <string name="first_and_last_name">First and Last Name</string>
     <string name="athlete_ranking">Athlete Ranking</string>
     <string name="add_athlete_to_team">Add Athlete to Team</string>
+    <string name="team_ranking">Team Ranking</string>
+    <string name="title_activity_athletes_view">AthletesView</string>
+    <string name="manage_athletes">Manage Athletes</string>
 
 </resources>

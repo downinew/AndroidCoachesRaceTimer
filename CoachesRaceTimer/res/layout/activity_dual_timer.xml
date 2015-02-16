@@ -10,12 +10,15 @@
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-	<TextView 
+
+	<TextView
 	    android:id="@+id/event1"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:text="@string/default_time"
+	    android:textColor="@color/main_time"
 	    android:textSize="30sp" />
+
 		<Button
 	    android:id="@+id/stop1"
 	    android:text="@string/stop_reset"
@@ -47,12 +50,15 @@
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-	<TextView 
+
+	<TextView
 	    android:id="@+id/event2"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:text="@string/default_time"
+	    android:textColor="@color/main_time"
 	    android:textSize="30sp" />
+
 	<Button
 	    android:id="@+id/stop2"
 	    android:text="@string/stop_reset"

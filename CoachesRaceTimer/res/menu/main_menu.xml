@@ -3,6 +3,6 @@
     <item android:id="@+id/race_timer" android:title="@string/race_timer" android:showAsAction="always"></item>
     <item android:id="@+id/dual_timer" android:title="@string/dual_timer" android:showAsAction="always"></item>
     <item android:id="@+id/convert_events" android:title="@string/convert_events" android:showAsAction="always"></item>
-    <item android:id="@+id/upload_results" android:title="@string/upload_results" android:showAsAction="always"></item>
+    <item android:id="@+id/manage_athletes" android:title="@string/manage_athletes" android:showAsAction="always"></item>
 
 </menu>

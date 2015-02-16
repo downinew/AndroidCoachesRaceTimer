@@ -54,7 +54,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView3"
         android:ems="10"
-        android:hint="Team Ranking"
+        android:hint="@string/team_ranking"
         android:inputType="number" />
 
     <Button

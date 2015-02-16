@@ -13,13 +13,16 @@
     android:layout_weight="1" >
 
     <RelativeLayout
-        android:layout_weight="1"
+        style="@color/main_time"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-	<TextView 
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
+
+	<TextView
 	    android:id="@+id/event1"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
+	    android:background="@color/list_view_bg"
 	    android:text="@string/event1_text" />
 
 	<ListView
@@ -29,6 +32,7 @@
 	    android:layout_above="@+id/time1"
 	    android:layout_below="@id/event1"
 	    android:layout_weight="1"
+	    android:background="@color/list_view_bg"
 	    tools:context=".ConvertActivity" >
 		
 	</ListView>"
@@ -53,10 +57,12 @@
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
-	<TextView 
+
+	<TextView
 	    android:id="@+id/event2"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
+	    android:background="@color/list_view_bg"
 	    android:text="@string/event2_text" />
 
 	<ListView
@@ -65,8 +71,8 @@
 	    android:layout_height="wrap_content"
 	    android:layout_above="@+id/time2"
 	    android:layout_below="@id/event2"
+	    android:background="@color/list_view_bg"
 	    tools:context=".ConvertActivity" >
-
 	    
 	</ListView>
 <!-- 	<Space  -->

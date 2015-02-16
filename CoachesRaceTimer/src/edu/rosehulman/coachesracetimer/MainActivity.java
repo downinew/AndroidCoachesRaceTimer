@@ -136,8 +136,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent intent2 = new Intent(this, ConvertActivity.class);
 			startActivity(intent2);
 			return true;
-		case R.id.upload_results:
-			// TODO: add this later
+		case R.id.manage_athletes:
+			Intent intent3 = new Intent(this,AthletesView.class);
+			startActivity(intent3);
 			return true;
 		}
 		return false;
