@@ -21,18 +21,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:text="@string/athlete_name"
+        android:text="@string/athlete_first_name"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
-        android:id="@+id/nameText"
+        android:id="@+id/firstNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView2"
         android:ems="10"
-        android:hint="@string/first_and_last_name" >
+        android:hint="@string/first_name" >
 
         <requestFocus />
     </EditText>
@@ -42,20 +42,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/nameText"
-        android:text="@string/athlete_ranking"
+        android:layout_below="@+id/firstNameText"
+        android:text="@string/athlete_last_name"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
-        android:id="@+id/rankText"
+        android:id="@+id/lastNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView3"
         android:ems="10"
-        android:hint="@string/team_ranking"
-        android:inputType="number" />
+        android:hint="@string/last_name" >
+    </EditText>
+
+    <Spinner
+        android:id="@+id/eventSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/lastNameText"
+        android:prompt="@string/choose_an_event_" />
+
+    <LinearLayout
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/eventSpinner"
+        android:orientation="horizontal" >
+
+        <NumberPicker
+            android:id="@+id/hourPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_alignParentLeft="true" />
+
+        <NumberPicker
+            android:id="@+id/minutePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <NumberPicker
+            android:id="@+id/secondPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:id="@+id/millisecondPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/addButton"
@@ -63,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/rankText"
+        android:layout_below="@+id/timePicker"
         android:text="@string/add_athlete_to_team" />
 
 </RelativeLayout>

@@ -21,8 +21,10 @@ import android.view.MenuItem;
 public class MainActivity extends Activity implements OnClickListener {
 	public static final String CRT = "CRT";
 	private static final int REQUEST_CODE_NEW_ATHLETE = 1;
-	public static final String KEY_NAME_STRING = "KEY_NAME_STRING";
-	public static final String KEY_RANK_STRING = "KEY_RANK_STRING";
+	public static final String KEY_FIRST_NAME_STRING = "KEY_FIRST_NAME_STRING";
+	public static final String KEY_LAST_NAME_STRING = "KEY_LAST_NAME_STRING";
+	public static final String KEY_MAIN_EVENT_STRING = "KEY_MAIN_EVENT_STRING";
+	public static final String KEY_PR_STRING = "KEY_PR_STRING";
 	private AthleteDataAdapter mAthleteDataAdapter;
 	private SimpleCursorAdapter mCursorAdapter;
 
@@ -55,8 +57,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		mAthleteDataAdapter.open();
 		
 		Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
-		String[] fromColumns = new String[] {AthleteDataAdapter.KEY_NAME};
-		int[] toTextViews = new int[]{R.id.athleteNameText};
+		String[] fromColumns = new String[] {AthleteDataAdapter.KEY_FIRST_NAME,AthleteDataAdapter.KEY_LAST_NAME};
+		int[] toTextViews = new int[]{R.id.athleteFirstNameText,R.id.athleteLastNameText};
 		mCursorAdapter = new SimpleCursorAdapter(this,R.layout.athlete_view,cursor,fromColumns,toTextViews,0);
 		athleteList.setAdapter(mCursorAdapter);
 		
@@ -92,8 +94,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (resultCode == Activity.RESULT_OK) {
 				Log.d(CRT, "Result ok!");
 				Athlete a = new Athlete();
-				a.setRank(data.getIntExtra(KEY_RANK_STRING,0));
-				a.setName(data.getStringExtra(KEY_NAME_STRING));
+				
+//				a.setRank(data.getIntExtra(KEY_RANK_STRING,0)); //TODO: make this work. Quick.
+//				a.setName(data.getStringExtra(KEY_NAME_STRING));
+				a.setFirstName(data.getStringExtra(KEY_FIRST_NAME_STRING));
+				a.setLastName(data.getStringExtra(KEY_LAST_NAME_STRING));
+				a.setMainEvent(data.getStringExtra(KEY_MAIN_EVENT_STRING));
+				a.setPR(data.getStringExtra(KEY_PR_STRING));
 				mAthleteDataAdapter.addAthlete(a);
 				Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
 				mCursorAdapter.changeCursor(cursor);

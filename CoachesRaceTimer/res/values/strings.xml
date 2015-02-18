@@ -33,5 +33,13 @@
     <string name="team_ranking">Team Ranking</string>
     <string name="title_activity_athletes_view">AthletesView</string>
     <string name="manage_athletes">Manage Athletes</string>
+    <string name="add_dialog_title">Add a new athlete</string>
+    <string name="last">Last</string>
+    <string name="first">First</string>
+    <string name="athlete_first_name">Athlete First Name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="athlete_last_name">Athlete Last Name</string>
+    <string name="choose_an_event_">Choose An Event...</string>
 
 </resources>

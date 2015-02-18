@@ -13,8 +13,10 @@ public class AthleteDataAdapter {
 	private SQLiteOpenHelper mOpenHelper;
 	private SQLiteDatabase mDatabase;
 	public static final String KEY_ID = "_id";
-	public static final String KEY_NAME = "name";
-	public static final String KEY_RANK = "rank";
+	public static final String KEY_FIRST_NAME = "firstname";
+	public static final String KEY_LAST_NAME = "lastname";
+	public static final String KEY_PR = "pr";
+	public static final String KEY_MAIN_EVENT = "mainevent";
 	private static final String TABLE_NAME = "AthleteTable";
 
 	
@@ -32,8 +34,10 @@ public class AthleteDataAdapter {
 	
 	private ContentValues getContentValuesFromAthlete(Athlete athlete){
 		ContentValues row = new ContentValues();
-		row.put(KEY_NAME,athlete.getName());
-		row.put(KEY_RANK, athlete.getRank());
+		row.put(KEY_FIRST_NAME,athlete.getFirstName());
+		row.put(KEY_LAST_NAME, athlete.getLastName());
+		row.put(KEY_MAIN_EVENT, athlete.getMainEvent());
+		row.put(KEY_PR,athlete.getPR());
 		return row;
 	}
 	
@@ -45,12 +49,12 @@ public class AthleteDataAdapter {
 	}
 	
 	public Cursor getAthletesCursor(){
-		String[] projection = new String[] { KEY_ID,KEY_NAME,KEY_RANK};
-		return mDatabase.query(TABLE_NAME, projection, null, null, null, null, KEY_RANK+" ASC");
+		String[] projection = new String[] { KEY_ID,KEY_FIRST_NAME,KEY_LAST_NAME,KEY_MAIN_EVENT,KEY_PR};
+		return mDatabase.query(TABLE_NAME, projection, null, null, null, null, KEY_PR+" ASC");
 	}
 	
 	public Athlete getAthlete(long id){
-		String[] projection = new String[]{KEY_ID,KEY_NAME,KEY_RANK};
+		String[] projection = new String[]{KEY_ID,KEY_FIRST_NAME,KEY_LAST_NAME,KEY_MAIN_EVENT,KEY_PR};
 		String selection = KEY_ID+" = "+id;
 		Cursor c = mDatabase.query(TABLE_NAME, projection,selection,null,null,null,null,null);
 		if(c!=null&&c.moveToFirst()){
@@ -62,8 +66,11 @@ public class AthleteDataAdapter {
 	private Athlete getAthleteFromCursor(Cursor c) {
 		Athlete a = new Athlete();
 		a.setId(c.getInt(c.getColumnIndexOrThrow(KEY_ID)));
-		a.setName(c.getString(c.getColumnIndexOrThrow(KEY_NAME)));
-		a.setRank(c.getInt(c.getColumnIndexOrThrow(KEY_RANK)));
+		a.setFirstName(c.getString(c.getColumnIndexOrThrow(KEY_FIRST_NAME)));
+		a.setLastName(c.getString(c.getColumnIndexOrThrow(KEY_LAST_NAME)));
+		a.setMainEvent(c.getString(c.getColumnIndexOrThrow(KEY_MAIN_EVENT)));
+		a.setPR(c.getString(c.getColumnIndexOrThrow(KEY_PR)));
+		a.setId(c.getLong(c.getColumnIndexOrThrow(KEY_ID)));
 		return a;
 	}
 	
@@ -88,8 +95,10 @@ public class AthleteDataAdapter {
 			StringBuilder sb = new StringBuilder();
 			sb.append("CREATE TABLE "+TABLE_NAME + " (");
 			sb.append(KEY_ID + " integer primary key autoincrement, ");
-			sb.append(KEY_NAME + " text, ");
-			sb.append(KEY_RANK+" integer");
+			sb.append(KEY_FIRST_NAME + " text, ");
+			sb.append(KEY_LAST_NAME + " text, ");
+			sb.append(KEY_MAIN_EVENT + " text, ");
+			sb.append(KEY_PR + " text");
 			sb.append(")");
 			CREATE_STATEMENT = sb.toString();
 		}
