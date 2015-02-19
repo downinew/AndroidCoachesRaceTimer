@@ -41,5 +41,9 @@
     <string name="last_name">Last Name</string>
     <string name="athlete_last_name">Athlete Last Name</string>
     <string name="choose_an_event_">Choose An Event...</string>
+    <string name="timeSeparator1">:</string>
+    <string name="timeSeparator2">.</string>
+    <string name="defaultTimeString1">00</string>
+    <string name="defaultTimeString2">000</string>
 
 </resources>

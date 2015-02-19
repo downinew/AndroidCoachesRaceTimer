@@ -75,30 +75,50 @@
         android:layout_below="@id/eventSpinner"
         android:orientation="horizontal" >
 
-        <NumberPicker
+        <EditText
             android:id="@+id/hourPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+       	 	android:hint="@string/defaultTimeString1"
+            android:inputType="number" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timeSeparator1" />
 
-        <NumberPicker
+        <EditText
             android:id="@+id/minutePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <NumberPicker
+            android:layout_weight="1"
+        	android:hint="@string/defaultTimeString1"
+            android:inputType="number" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timeSeparator1" />
+        <EditText
             android:id="@+id/secondPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+       	 	android:hint="@string/defaultTimeString1"
+            android:inputType="number" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timeSeparator2" />
 
-        <NumberPicker
+        <EditText
             android:id="@+id/millisecondPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+        	android:hint="@string/defaultTimeString2"
+            android:inputType="number" />
     </LinearLayout>
 
     <Button

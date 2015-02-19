@@ -30,17 +30,17 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/athleteFirstNameText"
-            android:text="single list item"
+            android:text="Last"
             android:textColor="#fff" />
 
         <TextView
             android:id="@+id/athleteFirstNameText"
             android:layout_width="83dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/athleteLastNameText"
-            android:layout_alignBottom="@+id/athleteLastNameText"
+            android:layout_alignBaseline="@+id/lapButton"
+            android:layout_alignBottom="@+id/lapButton"
             android:layout_alignParentLeft="true"
-            android:text="single list item"
+            android:text="First"
             android:textColor="#fff" />
 
 </RelativeLayout>
