@@ -33,9 +33,13 @@ public final class R {
         public static final int athleteFirstNameText=0x7f090028;
         public static final int athleteLastNameText=0x7f090027;
         public static final int athleteList=0x7f090010;
+        public static final int convertItem1=0x7f090029;
+        public static final int convertItem2=0x7f09002b;
+        public static final int convertTime1=0x7f09002c;
         public static final int convert_button=0x7f090006;
-        public static final int convert_events=0x7f09002b;
-        public static final int dual_timer=0x7f09002a;
+        public static final int convert_events=0x7f090030;
+        public static final int dual_timer=0x7f09002f;
+        public static final int equalText=0x7f09002d;
         public static final int event1=0x7f090000;
         public static final int event2=0x7f090003;
         public static final int eventSpinner=0x7f090015;
@@ -51,10 +55,10 @@ public final class R {
         public static final int listView1=0x7f090001;
         public static final int listView2=0x7f090004;
         public static final int mainEvent=0x7f090024;
-        public static final int manage_athletes=0x7f09002c;
+        public static final int manage_athletes=0x7f090031;
         public static final int millisecondPicker=0x7f09001a;
         public static final int minutePicker=0x7f090018;
-        public static final int race_timer=0x7f090029;
+        public static final int race_timer=0x7f09002e;
         public static final int secondPicker=0x7f090019;
         public static final int start1=0x7f090008;
         public static final int start2=0x7f09000a;
@@ -67,6 +71,7 @@ public final class R {
         public static final int time1=0x7f090002;
         public static final int time2=0x7f090005;
         public static final int timePicker=0x7f090016;
+        public static final int toText=0x7f09002a;
         public static final int year=0x7f090023;
     }
     public static final class layout {
@@ -78,6 +83,7 @@ public final class R {
         public static final int athlete_dialog_add=0x7f030005;
         public static final int athlete_list_item=0x7f030006;
         public static final int athlete_view=0x7f030007;
+        public static final int convert_dialog=0x7f030008;
     }
     public static final class menu {
         public static final int main_menu=0x7f080000;

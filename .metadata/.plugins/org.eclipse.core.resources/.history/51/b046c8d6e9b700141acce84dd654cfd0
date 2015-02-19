@@ -1,0 +1,201 @@
+package edu.rosehulman.coachesracetimer;
+
+import java.util.HashMap;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.ClipData.Item;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+public class ConvertActivity extends Activity {
+
+	ListView event1;
+	ListView event2;
+	Object item = null;
+	Object item2 = null;
+	Button convertButton;
+	HashMap<String, Integer> convertMap;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_convert);
+		event1 = (ListView) findViewById(R.id.listView1);
+		event2 = (ListView) findViewById(R.id.listView2);
+		convertButton = (Button) findViewById(R.id.convert_button);
+		String[] events = getResources().getStringArray(R.array.events);
+		createHashMap();
+		ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, events);
+		ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, events);
+		event1.setAdapter(adapter1);
+		event2.setAdapter(adapter2);
+
+		event1.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				item = parent.getItemAtPosition(position);
+			}
+		});
+
+		event2.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				item2 = parent.getItemAtPosition(position);
+			}
+		});
+
+		convertButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				printFunction();
+
+			}
+		});
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.race_timer:
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.dual_timer:
+			Intent intent2 = new Intent(this, DualTimerActivity.class);
+			startActivity(intent2);
+			return true;
+		case R.id.convert_events:
+			return true;
+		case R.id.manage_athletes:
+			Intent intent3 = new Intent(this, AthletesView.class);
+			startActivity(intent3);
+			return true;
+		}
+		return false;
+	}
+
+	public void printFunction() {
+
+		if (item != null && item2 != null) {
+			AlertDialog.Builder builder = new Builder(this);
+			builder.setTitle("Event Conversion");
+			LayoutInflater inflater = this.getLayoutInflater();
+			final View convertLayout = inflater.inflate(
+					R.layout.convert_dialog, null);
+			TextView convertItem1 = (TextView) convertLayout
+					.findViewById(R.id.convertItem1);
+			TextView convertItem2 = (TextView) convertLayout
+					.findViewById(R.id.convertItem2);
+			final EditText time1 = (EditText) convertLayout
+					.findViewById(R.id.convertTime1);
+			convertItem1.setText(item.toString());
+			convertItem2.setText(item2.toString());
+			builder.setView(convertLayout);
+
+			builder.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							// Nothing
+						}
+					});
+			builder.setNegativeButton("Convert",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							Log.e("DEBUG", "Passed edit call");
+							if (time1.getText() != null) {
+								String convertTime = time1.getText().toString();
+								Log.e("DEBUG", convertTime);
+								editTextConversion(convertTime);
+							}
+						}
+					});
+
+			builder.create();
+			builder.show();
+		}
+	}
+
+	public void createHashMap() {
+		this.convertMap = new HashMap<String, Integer>();
+		this.convertMap.put("55m", 55);
+		this.convertMap.put("60m", 60);
+		this.convertMap.put("55m hurdles", 55);
+		this.convertMap.put("60m hurdles", 60);
+		this.convertMap.put("100m", 100);
+		this.convertMap.put("100m hurdles", 100);
+		this.convertMap.put("110m hurdles", 110);
+		this.convertMap.put("200m", 200);
+		this.convertMap.put("400m", 400);
+		this.convertMap.put("800m", 800);
+		this.convertMap.put("1000m", 1000);
+		this.convertMap.put("1200m", 1200);
+		this.convertMap.put("1600m", 1600);
+		this.convertMap.put("Mile", 1609);
+		this.convertMap.put("2000m steeplechase", 2000);
+		this.convertMap.put("3000m", 3000);
+		this.convertMap.put("3000m steeplechase", 3000);
+		this.convertMap.put("3200m", 3200);
+		this.convertMap.put("5000m", 5000);
+		this.convertMap.put("6000m", 6000);
+		this.convertMap.put("8000m", 8000);
+		this.convertMap.put("10000m", 10000);
+		this.convertMap.put("15000m", 15000);
+		this.convertMap.put("Half-marathon", 21097);
+		this.convertMap.put("Marathon", 42194);
+	}
+
+	public void editTextConversion(String convertTime) {
+		if (convertTime.length() == 12) {
+			String milli = convertTime.substring(convertTime.length() - 2,
+					convertTime.length());
+			System.out.println(milli);
+		}
+	}
+
+}
