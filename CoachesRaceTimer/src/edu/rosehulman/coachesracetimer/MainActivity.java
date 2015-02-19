@@ -20,7 +20,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends Activity implements OnClickListener {
 	public static final String CRT = "CRT";
-	private static final int REQUEST_CODE_NEW_ATHLETE = 1;
+	static final int REQUEST_CODE_NEW_ATHLETE = 1;
 	public static final String KEY_FIRST_NAME_STRING = "KEY_FIRST_NAME_STRING";
 	public static final String KEY_LAST_NAME_STRING = "KEY_LAST_NAME_STRING";
 	public static final String KEY_MAIN_EVENT_STRING = "KEY_MAIN_EVENT_STRING";
@@ -82,6 +82,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		} else if (addAthleteButton == v) {
 			Log.d(CRT, "addAthleteButton");
 			Intent newAthleteIntent = new Intent(this, NewAthleteActivity.class);
+			newAthleteIntent.putExtra(AthletesView.EDIT_OR_NEW, AthletesView.NEW);
 			startActivityForResult(newAthleteIntent, REQUEST_CODE_NEW_ATHLETE);
 		}
 		Log.d(CRT, "TEST");

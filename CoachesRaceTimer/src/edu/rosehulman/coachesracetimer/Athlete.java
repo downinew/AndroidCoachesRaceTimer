@@ -1,6 +1,6 @@
 package edu.rosehulman.coachesracetimer;
 
-public class Athlete {
+public class Athlete implements Comparable<Athlete>{
 
 	private String mFirstName;
 	private String mLastName;
@@ -68,8 +68,8 @@ public class Athlete {
 		mMainEvent=mainEvent;
 	}
 	
-	public double compareTo(Athlete other) {
-		return getPRSeconds()-other.getPRSeconds();
+	public int compareTo(Athlete other) {
+		return (int) (getPRSeconds()*1000-other.getPRSeconds()*1000);
 	}
 
 	public String toString() {
