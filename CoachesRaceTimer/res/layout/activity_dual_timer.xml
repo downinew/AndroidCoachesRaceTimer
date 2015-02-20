@@ -32,13 +32,16 @@
 	    android:text="@string/start_lap"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" />
+
 	<ListView
 	    android:id="@+id/listView1"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@id/event1"
 	    android:layout_above="@id/start1"
+	    android:layout_below="@id/event1"
+	    android:background="@color/list_view_bg"
 	    tools:context=".ConvertActivity" >
+
 	</ListView>
 
 
@@ -72,13 +75,16 @@
 	    android:text="@string/start_lap"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" />
+
 	<ListView
 	    android:id="@+id/listView2"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@id/event2"
 	    android:layout_above="@id/start2"
+	    android:layout_below="@id/event2"
+	    android:background="@color/list_view_bg"
 	    tools:context=".ConvertActivity" >
+
 	</ListView>
 	
 

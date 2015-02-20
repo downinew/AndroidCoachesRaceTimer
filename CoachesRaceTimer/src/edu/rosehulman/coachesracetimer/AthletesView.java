@@ -80,7 +80,7 @@ public class AthletesView extends ListActivity {
 				AthleteDataAdapter.KEY_MAIN_EVENT, AthleteDataAdapter.KEY_PR };
 		int[] toTextViews = new int[] { R.id.firstName, R.id.lastName,
 				R.id.mainEvent, R.id.pr };
-		mCursorAdapter = new SimpleCursorAdapter(this,
+		mCursorAdapter = new AthleteManagerCursorAdapter(this,
 				R.layout.athlete_list_item, cursor, fromColumns, toTextViews, 0);
 		setListAdapter(mCursorAdapter);
 	}
@@ -155,10 +155,17 @@ public class AthletesView extends ListActivity {
 	}
 	
 	private void editAthlete(Athlete currentAthlete) {
+		if(mSelectedId!=NO_ID_SELECTED){
 		currentAthlete.setId(mSelectedId);
 		mAthleteDataAdapter.updateAthlete(currentAthlete);
 		mCursorAdapter.changeCursor(mAthleteDataAdapter
 				.getAthletesCursor());
+		}
+	}
+	
+	public void removeAthlete(long id){
+		mAthleteDataAdapter.removeAthlete(id);
+		mCursorAdapter.changeCursor(mAthleteDataAdapter.getAthletesCursor());
 	}
 
 	public final class AthleteDialogFragment extends DialogFragment {

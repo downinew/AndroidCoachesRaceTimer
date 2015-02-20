@@ -22,7 +22,7 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/SecondaryStopButton"
             android:layout_weight="1"
-            android:text="Lap 0" />
+            android:text="Lap" />
 
         <TextView
             android:id="@+id/athleteLastNameText"

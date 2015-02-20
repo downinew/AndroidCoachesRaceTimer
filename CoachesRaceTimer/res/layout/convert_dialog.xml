@@ -48,20 +48,12 @@
             android:id="@+id/convertTime1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:ems="10"
             android:hint="00:00:00.000"
-            android:textSize="32sp" />
+            android:textSize="32sp" >
 
-        <TextView
-            android:id="@+id/equalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            android:textSize="32sp"
-            android:layout_weight="1"
-            android:text="=" />
+            <requestFocus />
+        </EditText>
 
 <!--         <TextView -->
 <!--             android:id="@+id/convertTime2" -->
