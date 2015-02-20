@@ -50,13 +50,13 @@ public class AthleteDataAdapter {
 	
 	public Cursor getAthletesCursor(){
 		String[] projection = new String[] { KEY_ID,KEY_FIRST_NAME,KEY_LAST_NAME,KEY_MAIN_EVENT,KEY_PR};
-		return mDatabase.query(TABLE_NAME, projection, null, null, null, null, KEY_PR+" ASC");
+		return mDatabase.query(TABLE_NAME, projection, null, null, null, null, null);
 	}
 	
 	public Athlete getAthlete(long id){
 		String[] projection = new String[]{KEY_ID,KEY_FIRST_NAME,KEY_LAST_NAME,KEY_MAIN_EVENT,KEY_PR};
 		String selection = KEY_ID+" = "+id;
-		Cursor c = mDatabase.query(TABLE_NAME, projection,selection,null,null,null,null,null);
+		Cursor c = mDatabase.query(TABLE_NAME, projection,selection,null,null,null,null,KEY_PR+"ASC");
 		if(c!=null&&c.moveToFirst()){
 			return getAthleteFromCursor(c);
 		}

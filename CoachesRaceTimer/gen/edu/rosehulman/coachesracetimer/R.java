@@ -53,15 +53,6 @@ public final class R {
         public static final int last_name_edit_text=0x7f09001e;
         public static final int listView1=0x7f090001;
         public static final int listView2=0x7f090004;
-<<<<<<< HEAD
-        public static final int mainEvent=0x7f090023;
-        public static final int manage_athletes=0x7f090031;
-        public static final int millisecondPicker=0x7f09001a;
-        public static final int minutePicker=0x7f090018;
-        public static final int pr=0x7f090024;
-        public static final int race_timer=0x7f09002e;
-        public static final int secondPicker=0x7f090019;
-=======
         public static final int mainEvent=0x7f090024;
         public static final int manage_athletes=0x7f090031;
         public static final int millisecondPicker=0x7f09001b;
@@ -70,7 +61,6 @@ public final class R {
         public static final int race_timer=0x7f09002e;
         public static final int saveButton=0x7f09000f;
         public static final int secondPicker=0x7f09001a;
->>>>>>> e1e94adcfd88fb0dbc56ffa7bbf26aeb6799a0f1
         public static final int start1=0x7f090008;
         public static final int start2=0x7f09000a;
         public static final int startStop=0x7f09000c;
@@ -81,13 +71,8 @@ public final class R {
         public static final int textView3=0x7f090014;
         public static final int time1=0x7f090002;
         public static final int time2=0x7f090005;
-<<<<<<< HEAD
-        public static final int timePicker=0x7f090016;
-        public static final int toText=0x7f09002a;
-=======
         public static final int timePicker=0x7f090017;
         public static final int toText=0x7f09002b;
->>>>>>> e1e94adcfd88fb0dbc56ffa7bbf26aeb6799a0f1
     }
     public static final class layout {
         public static final int activity_athletes_view=0x7f030000;
