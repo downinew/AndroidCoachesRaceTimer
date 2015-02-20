@@ -54,20 +54,12 @@ public final class R {
         public static final int last_name_edit_text=0x7f09001d;
         public static final int listView1=0x7f090001;
         public static final int listView2=0x7f090004;
-<<<<<<< HEAD
-        public static final int mainEvent=0x7f090024;
+        public static final int mainEvent=0x7f090023;
         public static final int manage_athletes=0x7f090031;
         public static final int millisecondPicker=0x7f09001a;
         public static final int minutePicker=0x7f090018;
-        public static final int race_timer=0x7f09002e;
-=======
-        public static final int mainEvent=0x7f090023;
-        public static final int manage_athletes=0x7f09002c;
-        public static final int millisecondPicker=0x7f09001a;
-        public static final int minutePicker=0x7f090018;
         public static final int pr=0x7f090024;
-        public static final int race_timer=0x7f090029;
->>>>>>> fce25d0dbfbb914bd58b468ff853f4978fd02abf
+        public static final int race_timer=0x7f09002e;
         public static final int secondPicker=0x7f090019;
         public static final int start1=0x7f090008;
         public static final int start2=0x7f09000a;
@@ -80,11 +72,7 @@ public final class R {
         public static final int time1=0x7f090002;
         public static final int time2=0x7f090005;
         public static final int timePicker=0x7f090016;
-<<<<<<< HEAD
         public static final int toText=0x7f09002a;
-        public static final int year=0x7f090023;
-=======
->>>>>>> fce25d0dbfbb914bd58b468ff853f4978fd02abf
     }
     public static final class layout {
         public static final int activity_athletes_view=0x7f030000;
