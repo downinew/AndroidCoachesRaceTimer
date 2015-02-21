@@ -3,6 +3,7 @@
     package="edu.rosehulman.coachesracetimer"
     android:versionCode="1"
     android:versionName="1.0" >
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -37,6 +38,10 @@
         <activity
             android:name=".AthletesView"
             android:label="@string/title_activity_athletes_view" >
+        </activity>
+        <activity
+            android:name=".SaveDialogActivity"
+            android:label="@string/save_race_to_device" >
         </activity>
     </application>
 

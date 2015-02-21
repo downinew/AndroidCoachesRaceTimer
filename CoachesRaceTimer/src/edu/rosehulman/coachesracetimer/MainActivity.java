@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,17 +19,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 public class MainActivity extends Activity implements OnClickListener {
 	public static final String CRT = "CRT";
 	static final int REQUEST_CODE_NEW_ATHLETE = 1;
+	static final int REQUEST_CODE_SAVE_FILE = 2;
 	public static final String KEY_FIRST_NAME_STRING = "KEY_FIRST_NAME_STRING";
 	public static final String KEY_LAST_NAME_STRING = "KEY_LAST_NAME_STRING";
 	public static final String KEY_MAIN_EVENT_STRING = "KEY_MAIN_EVENT_STRING";
@@ -120,44 +125,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						REQUEST_CODE_NEW_ATHLETE);
 			}
 		} else if (saveRaceButton == v) {
-			Toast.makeText(MainActivity.this, "Saving...", Toast.LENGTH_LONG)
-					.show();
-			File root = Environment.getExternalStorageDirectory();
-			File athleteDataFile = new File(root, "athletedata.csv");
-			// Create the CSV within here
-
-			try {
-				writer = new FileWriter(athleteDataFile);
-				writeCsvHeader("First Name", "Last Name", "Main Event",
-						"Personal Record");
-
-				Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
-
-				if (cursor.moveToFirst()) {
-					do {
-						String firstName = cursor.getString(cursor
-								.getColumnIndex("firstname"));
-						String lastName = cursor.getString(cursor
-								.getColumnIndex("lastname"));
-						String mainEvent = cursor.getString(cursor
-								.getColumnIndex("mainevent"));
-						String pr = cursor.getString(cursor
-								.getColumnIndex("pr"));
-
-						writeCsvData(firstName, lastName, mainEvent, pr);
-
-					} while (cursor.moveToNext());
-				}
-				cursor.close();
-
-				writer.flush();
-				writer.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Toast.makeText(MainActivity.this, "Saved!", Toast.LENGTH_SHORT)
-					.show();
+			Intent intent = new Intent(this,SaveDialogActivity.class);
+			startActivityForResult(intent,REQUEST_CODE_SAVE_FILE);
 		}
 		Log.d(CRT, "TEST");
 	}
@@ -192,6 +161,53 @@ public class MainActivity extends Activity implements OnClickListener {
 				// adapter.notifyDataSetChanged();
 			} else {
 				Log.d(CRT, "Result not okay. User hit back w/o a button");
+			}
+			break;
+		case REQUEST_CODE_SAVE_FILE:
+			if(resultCode == Activity.RESULT_OK){
+
+				Toast.makeText(MainActivity.this, "Saving...", Toast.LENGTH_SHORT)
+						.show();
+				File root = Environment.getExternalStorageDirectory();
+				String fileName = data.getStringExtra(SaveDialogActivity.FILE_NAME);
+				if(!fileName.endsWith(".csv")){
+					fileName+=".csv";
+				}
+				File athleteDataFile = new File(root, fileName);
+				// Create the CSV within here
+
+				try {
+					writer = new FileWriter(athleteDataFile);
+					writeCsvHeader("First Name", "Last Name", "Main Event",
+							"Personal Record");
+
+					Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
+
+					if (cursor.moveToFirst()) {
+						do {
+							String firstName = cursor.getString(cursor
+									.getColumnIndex("firstname"));
+							String lastName = cursor.getString(cursor
+									.getColumnIndex("lastname"));
+							String mainEvent = cursor.getString(cursor
+									.getColumnIndex("mainevent"));
+							String pr = cursor.getString(cursor
+									.getColumnIndex("pr"));
+
+							writeCsvData(firstName, lastName, mainEvent, pr);
+
+						} while (cursor.moveToNext());
+					}
+					cursor.close();
+
+					writer.flush();
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Toast.makeText(MainActivity.this, "Saved to device as "+fileName, Toast.LENGTH_SHORT)
+						.show();
 			}
 			break;
 		default:

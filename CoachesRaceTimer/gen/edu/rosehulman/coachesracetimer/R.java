@@ -33,16 +33,18 @@ public final class R {
         public static final int athleteFirstNameText=0x7f090029;
         public static final int athleteLastNameText=0x7f090028;
         public static final int athleteList=0x7f090011;
+        public static final int cancelSaveButton=0x7f09002f;
         public static final int convertItem1=0x7f09002a;
         public static final int convertItem2=0x7f09002c;
         public static final int convertTime1=0x7f09002d;
         public static final int convert_button=0x7f090006;
-        public static final int convert_events=0x7f090030;
-        public static final int dual_timer=0x7f09002f;
+        public static final int convert_events=0x7f090032;
+        public static final int dual_timer=0x7f090031;
         public static final int event1=0x7f090000;
         public static final int event2=0x7f090003;
         public static final int eventSpinner=0x7f090016;
         public static final int event_spinner=0x7f09001f;
+        public static final int fileNameEditText=0x7f09002e;
         public static final int firstName=0x7f090022;
         public static final int firstNameText=0x7f090013;
         public static final int first_name_edit_text=0x7f09001d;
@@ -54,11 +56,11 @@ public final class R {
         public static final int listView1=0x7f090001;
         public static final int listView2=0x7f090004;
         public static final int mainEvent=0x7f090024;
-        public static final int manage_athletes=0x7f090031;
+        public static final int manage_athletes=0x7f090033;
         public static final int millisecondPicker=0x7f09001b;
         public static final int minutePicker=0x7f090019;
         public static final int pr=0x7f090025;
-        public static final int race_timer=0x7f09002e;
+        public static final int race_timer=0x7f090030;
         public static final int saveButton=0x7f09000f;
         public static final int secondPicker=0x7f09001a;
         public static final int start1=0x7f090008;
@@ -84,6 +86,7 @@ public final class R {
         public static final int athlete_list_item=0x7f030006;
         public static final int athlete_view=0x7f030007;
         public static final int convert_dialog=0x7f030008;
+        public static final int save_dialog=0x7f030009;
     }
     public static final class menu {
         public static final int main_menu=0x7f080000;
@@ -124,6 +127,7 @@ public final class R {
         public static final int manage_athletes=0x7f06001f;
         public static final int race_timer=0x7f060012;
         public static final int save_race_=0x7f06002c;
+        public static final int save_race_to_device=0x7f06002d;
         public static final int start_lap=0x7f060010;
         public static final int stop_reset=0x7f060011;
         public static final int team_ranking=0x7f06001d;
