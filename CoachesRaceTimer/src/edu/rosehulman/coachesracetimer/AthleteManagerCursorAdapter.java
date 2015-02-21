@@ -2,6 +2,7 @@ package edu.rosehulman.coachesracetimer;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
@@ -25,6 +26,7 @@ public class AthleteManagerCursorAdapter extends SimpleCursorAdapter {
 			@Override
 			public boolean onLongClick(View v) {
 				AthleteManagerCursorAdapter.this.context.removeAthlete(fPosition);
+				Log.d(MainActivity.CRT,"Called remove");
 				return true;
 			}
 		});

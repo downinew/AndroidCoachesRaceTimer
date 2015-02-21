@@ -61,7 +61,7 @@ public class AthletesView extends ListActivity {
 		eventList.add("Marathon");
 	}
 
-	public static final long NO_ID_SELECTED = -1;
+	public static final long NO_ID_SELECTED = 0;
 	private AthleteDataAdapter mAthleteDataAdapter;
 	private SimpleCursorAdapter mCursorAdapter;
 	private long mSelectedId = NO_ID_SELECTED;
@@ -82,6 +82,7 @@ public class AthletesView extends ListActivity {
 				R.id.mainEvent, R.id.pr };
 		mCursorAdapter = new AthleteManagerCursorAdapter(this,
 				R.layout.athlete_list_item, cursor, fromColumns, toTextViews, 0);
+		mCursorAdapter.getCursor().moveToFirst();
 		setListAdapter(mCursorAdapter);
 	}
 
@@ -164,7 +165,11 @@ public class AthletesView extends ListActivity {
 	}
 	
 	public void removeAthlete(long id){
-		mAthleteDataAdapter.removeAthlete(id);
+		if(mAthleteDataAdapter.removeAthlete(id)){
+			Log.d(MainActivity.CRT,"Removed athlete");
+		}else{
+			Log.d(MainActivity.CRT,"Failed to remove athlete");
+		}
 		mCursorAdapter.changeCursor(mAthleteDataAdapter.getAthletesCursor());
 	}
 

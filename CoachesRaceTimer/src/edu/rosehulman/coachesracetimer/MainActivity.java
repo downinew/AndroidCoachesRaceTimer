@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -86,10 +87,33 @@ public class MainActivity extends Activity implements OnClickListener {
 		mCursorAdapter = new AthleteTimeCursorAdapter(this,
 				R.layout.athlete_view, cursor, fromColumns, toTextViews, 0);
 		athleteList.setAdapter(mCursorAdapter);
-		// for(int i=0;i<mCursorAdapter.getCursor().getCount();i++){
-		// lapMap.put(mCursorAdapter.getCursor().getString(1)+" "+mCursorAdapter.getCursor().getString(2),
-		// new ArrayList<String>());
-		// }TODO: FIX THIS!!!!!!
+		mCursorAdapter.getCursor().moveToFirst();
+		if(mCursorAdapter.getCursor().getCount()>0){
+		do {
+//			try{
+			Cursor currentCursor = mCursorAdapter.getCursor();
+			int firstNameCol = mCursorAdapter.getCursor().getColumnIndexOrThrow(AthleteDataAdapter.KEY_FIRST_NAME);
+			String firstName="";
+			if(firstNameCol!=-1){
+			firstName = currentCursor.getString(firstNameCol);
+			}else{
+				Log.d(CRT,"First name incorrect");
+			}
+			int lastNameCol = mCursorAdapter.getCursor().getColumnIndexOrThrow(AthleteDataAdapter.KEY_LAST_NAME);
+			String lastName = "";
+			if(lastNameCol!=-1){
+				lastName=currentCursor.getString(lastNameCol);
+			}else{
+				Log.d(CRT,"Last name incorrect");
+			}
+			lapMap.put(firstName + " " + lastName, new ArrayList<String>());
+			int idCol = currentCursor.getColumnIndexOrThrow(AthleteDataAdapter.KEY_ID);
+			Log.d(CRT,""+currentCursor.getString(idCol));
+//			}catch (Exception e){
+//				break;
+//			}
+		} while(mCursorAdapter.getCursor().moveToNext());
+		}
 		Log.d(CRT, lapMap.toString());
 
 		// athleteArray = new ArrayList<String>();
@@ -125,8 +149,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						REQUEST_CODE_NEW_ATHLETE);
 			}
 		} else if (saveRaceButton == v) {
-			Intent intent = new Intent(this,SaveDialogActivity.class);
-			startActivityForResult(intent,REQUEST_CODE_SAVE_FILE);
+			Intent intent = new Intent(this, SaveDialogActivity.class);
+			startActivityForResult(intent, REQUEST_CODE_SAVE_FILE);
 		}
 		Log.d(CRT, "TEST");
 	}
@@ -164,49 +188,30 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			break;
 		case REQUEST_CODE_SAVE_FILE:
-			if(resultCode == Activity.RESULT_OK){
+			if (resultCode == Activity.RESULT_OK) {
 
-				Toast.makeText(MainActivity.this, "Saving...", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(MainActivity.this, "Saving...",
+						Toast.LENGTH_SHORT).show();
 				File root = Environment.getExternalStorageDirectory();
-				String fileName = data.getStringExtra(SaveDialogActivity.FILE_NAME);
-				if(!fileName.endsWith(".csv")){
-					fileName+=".csv";
+				String fileName = data
+						.getStringExtra(SaveDialogActivity.FILE_NAME);
+				if (!fileName.endsWith(".csv")) {
+					fileName += ".csv";
 				}
 				File athleteDataFile = new File(root, fileName);
 				// Create the CSV within here
 
 				try {
 					writer = new FileWriter(athleteDataFile);
-					writeCsvHeader("First Name", "Last Name", "Main Event",
-							"Personal Record");
-
-					Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
-
-					if (cursor.moveToFirst()) {
-						do {
-							String firstName = cursor.getString(cursor
-									.getColumnIndex("firstname"));
-							String lastName = cursor.getString(cursor
-									.getColumnIndex("lastname"));
-							String mainEvent = cursor.getString(cursor
-									.getColumnIndex("mainevent"));
-							String pr = cursor.getString(cursor
-									.getColumnIndex("pr"));
-
-							writeCsvData(firstName, lastName, mainEvent, pr);
-
-						} while (cursor.moveToNext());
-					}
-					cursor.close();
-
+					writeCsvData(lapMap);
 					writer.flush();
 					writer.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Toast.makeText(MainActivity.this, "Saved to device as "+fileName, Toast.LENGTH_SHORT)
+				Toast.makeText(MainActivity.this,
+						"Saved to device as " + fileName, Toast.LENGTH_SHORT)
 						.show();
 			}
 			break;
@@ -279,23 +284,28 @@ public class MainActivity extends Activity implements OnClickListener {
 			String lastName = ((TextView) v
 					.findViewById(R.id.athleteLastNameText)).getText()
 					.toString();
-			// lapMap.get(firstName+" "+lastName).add(stopWatch.getTime());TODO:
-			// FIX THIS!!!!!!
+			lapMap.get(firstName + " " + lastName).add(stopWatch.getTime());
 			Log.d(CRT, lapMap.toString());
 		}
 	}
 
-	// Methods to Create CSV File
-	private void writeCsvHeader(String h1, String h2, String h3, String h4)
+	// Method to Create CSV File
+	private void writeCsvData(Map<String, List<String>> data)
 			throws IOException {
-		String line = String.format("%s, %s, %s, %s\n", h1, h2, h3, h4);
-		writer.write(line);
-	}
-
-	private void writeCsvData(String f, String l, String m, String p)
-			throws IOException {
-		String line = String.format("%s, %s, %s, %s\n", f, l, m, p);
-		writer.write(line);
+		StringBuilder builder = new StringBuilder();
+		Iterator<Map.Entry<String,List<String>>> iter = data.entrySet().iterator();
+		while(iter.hasNext()){
+			Map.Entry<String,List<String>> pair = (Map.Entry<String,List<String>>)iter.next();
+			builder.append(pair.getKey());
+			for(String lap : pair.getValue()){
+				builder.append(", ");
+				builder.append(lap);
+			}
+			builder.append("\n");
+			iter.remove();
+			
+		}
+		writer.write(builder.toString());
 	}
 
 }
