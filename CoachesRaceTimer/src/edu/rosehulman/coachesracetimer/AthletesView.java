@@ -121,7 +121,7 @@ public class AthletesView extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		mSelectedId = id;
-
+		Log.d(MainActivity.CRT,""+position);
 		Intent newAthleteIntent = new Intent(this, NewAthleteActivity.class);
 		newAthleteIntent.putExtra(EDIT_OR_NEW, EDIT);
 		newAthleteIntent.putExtra("FIRST_NAME", ((TextView) l.findViewById(R.id.firstName)).getText()
