@@ -43,6 +43,7 @@ public class NewAthleteActivity extends Activity implements OnClickListener {
 		eventList.add("600m");
 		eventList.add("800m");
 		eventList.add("1000m");
+		eventList.add("1500m");
 		eventList.add("1600m");
 		eventList.add("Mile");
 		eventList.add("2000m Steeplechase");

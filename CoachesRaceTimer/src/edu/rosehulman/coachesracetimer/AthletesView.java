@@ -3,8 +3,10 @@ package edu.rosehulman.coachesracetimer;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -94,34 +96,53 @@ public class AthletesView extends ListActivity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Cursor c = mCursorAdapter.getCursor();
-				c.moveToFirst();
-				TextView fName = (TextView) view.findViewById(R.id.firstName);
-				TextView lName = (TextView) view.findViewById(R.id.lastName);
-				int iD=-1;
-				if (c.getCount() > 0) {
-					do {
-						if (c.getString(
-								c.getColumnIndex(AthleteDataAdapter.KEY_FIRST_NAME))
-								.equals(fName.getText().toString())
-								&& c.getString(
-										c.getColumnIndex(AthleteDataAdapter.KEY_LAST_NAME))
-										.equals(lName.getText().toString())) {
-							iD=c.getInt(c.getColumnIndex(AthleteDataAdapter.KEY_ID));
-							break;
+				final TextView fName = (TextView) view.findViewById(R.id.firstName);
+				final TextView lName = (TextView) view.findViewById(R.id.lastName);
+				AlertDialog.Builder builder = new AlertDialog.Builder(AthletesView.this);
+				builder.setTitle("Delete "+fName.getText().toString()+" "+lName.getText().toString()+" from roster?");
+				builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						Cursor c = mCursorAdapter.getCursor();
+						c.moveToFirst();
+						int iD=-1;
+						if (c.getCount() > 0) {
+							do {
+								if (c.getString(
+										c.getColumnIndex(AthleteDataAdapter.KEY_FIRST_NAME))
+										.equals(fName.getText().toString())
+										&& c.getString(
+												c.getColumnIndex(AthleteDataAdapter.KEY_LAST_NAME))
+												.equals(lName.getText().toString())) {
+									iD=c.getInt(c.getColumnIndex(AthleteDataAdapter.KEY_ID));
+									break;
+								}
+							} while (c.moveToNext());
 						}
-					} while (c.moveToNext());
-				}
-				removeAthlete(iD);
-				String[] fromColumns = new String[] {
-						AthleteDataAdapter.KEY_FIRST_NAME,
-						AthleteDataAdapter.KEY_LAST_NAME,
-						AthleteDataAdapter.KEY_MAIN_EVENT, AthleteDataAdapter.KEY_PR };
-				int[] toTextViews = new int[] { R.id.firstName, R.id.lastName,
-						R.id.mainEvent, R.id.pr };
-				mCursorAdapter = new AthleteManagerCursorAdapter(AthletesView.this,
-						R.layout.athlete_list_item, mAthleteDataAdapter.getAthletesCursor(), fromColumns, toTextViews, 0);
-				Log.d(MainActivity.CRT,"Called remove");
+						removeAthlete(iD);
+						String[] fromColumns = new String[] {
+								AthleteDataAdapter.KEY_FIRST_NAME,
+								AthleteDataAdapter.KEY_LAST_NAME,
+								AthleteDataAdapter.KEY_MAIN_EVENT, AthleteDataAdapter.KEY_PR };
+						int[] toTextViews = new int[] { R.id.firstName, R.id.lastName,
+								R.id.mainEvent, R.id.pr };
+						mCursorAdapter = new AthleteManagerCursorAdapter(AthletesView.this,
+								R.layout.athlete_list_item, mAthleteDataAdapter.getAthletesCursor(), fromColumns, toTextViews, 0);
+						Log.d(MainActivity.CRT,"Called remove");
+					}
+					
+				});
+				builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();
 				return true;
 			}
 			

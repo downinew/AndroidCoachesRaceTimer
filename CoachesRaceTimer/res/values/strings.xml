@@ -47,5 +47,6 @@
     <string name="defaultTimeString2">000</string>
     <string name="save_race_">Save Race...</string>
     <string name="save_race_to_device">Save Race to Device</string>
+    <string name="add_new_athlete_to_team_">Add New Athlete To Team...</string>
 
 </resources>
