@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,18 +17,13 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 public class MainActivity extends Activity implements OnClickListener {
 	public static final String CRT = "CRT";
@@ -52,9 +46,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	TimerHandler timerHandler;
 	ListView athleteList;
 	Map<String, List<String>> lapMap;
-
-	// ArrayList<String> athleteArray;
-	// ArrayAdapter<String> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,41 +79,31 @@ public class MainActivity extends Activity implements OnClickListener {
 				R.layout.athlete_view, cursor, fromColumns, toTextViews, 0);
 		athleteList.setAdapter(mCursorAdapter);
 		mCursorAdapter.getCursor().moveToFirst();
-		if(mCursorAdapter.getCursor().getCount()>0){
-		do {
-//			try{
-			Cursor currentCursor = mCursorAdapter.getCursor();
-			int firstNameCol = mCursorAdapter.getCursor().getColumnIndexOrThrow(AthleteDataAdapter.KEY_FIRST_NAME);
-			String firstName="";
-			if(firstNameCol!=-1){
-			firstName = currentCursor.getString(firstNameCol);
-			}else{
-				Log.d(CRT,"First name incorrect");
-			}
-			int lastNameCol = mCursorAdapter.getCursor().getColumnIndexOrThrow(AthleteDataAdapter.KEY_LAST_NAME);
-			String lastName = "";
-			if(lastNameCol!=-1){
-				lastName=currentCursor.getString(lastNameCol);
-			}else{
-				Log.d(CRT,"Last name incorrect");
-			}
-			lapMap.put(firstName + " " + lastName, new ArrayList<String>());
-			int idCol = currentCursor.getColumnIndexOrThrow(AthleteDataAdapter.KEY_ID);
-			Log.d(CRT,""+currentCursor.getString(idCol));
-//			}catch (Exception e){
-//				break;
-//			}
-		} while(mCursorAdapter.getCursor().moveToNext());
+		if (mCursorAdapter.getCursor().getCount() > 0) {
+			do {
+				Cursor currentCursor = mCursorAdapter.getCursor();
+				int firstNameCol = mCursorAdapter.getCursor()
+						.getColumnIndexOrThrow(
+								AthleteDataAdapter.KEY_FIRST_NAME);
+				String firstName = "";
+				if (firstNameCol != -1) {
+					firstName = currentCursor.getString(firstNameCol);
+				} else {
+					Log.d(CRT, "First name incorrect");
+				}
+				int lastNameCol = mCursorAdapter
+						.getCursor()
+						.getColumnIndexOrThrow(AthleteDataAdapter.KEY_LAST_NAME);
+				String lastName = "";
+				if (lastNameCol != -1) {
+					lastName = currentCursor.getString(lastNameCol);
+				} else {
+					Log.d(CRT, "Last name incorrect");
+				}
+				lapMap.put(firstName + " " + lastName, new ArrayList<String>());
+			} while (mCursorAdapter.getCursor().moveToNext());
 		}
 		Log.d(CRT, lapMap.toString());
-
-		// athleteArray = new ArrayList<String>();
-		// for(int i=1;i<15;i++){
-		// athleteArray.add("Test Athlete "+i);
-		// }
-		// adapter = new ArrayAdapter<String>(this,
-		// R.layout.athlete_view, R.id.athleteNameText, athleteArray);
-		// athleteList.setAdapter(adapter);
 	}
 
 	@Override
@@ -130,12 +111,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (startButton == v) {
 			Log.d(CRT, "Start");
 			this.timerHandler.sendEmptyMessage(TimerHandler.TIMER_START);
-			// mCursorAdapter.setLapEnabled(true);
-			// mCursorAdapter.setStopEnabled(true);
 		} else if (stopButton == v) {
 			Log.d(CRT, "Stop");
-			// mCursorAdapter.setStopEnabled(false);
-			// mCursorAdapter.setLapEnabled(false);
 			timerHandler.sendEmptyMessage(TimerHandler.TIMER_STOP);
 		} else if (addAthleteButton == v) {
 			Log.d(CRT, "addAthleteButton");
@@ -162,9 +139,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (resultCode == Activity.RESULT_OK) {
 				Log.d(CRT, "Result ok!");
 				Athlete a = new Athlete();
-
-				// a.setRank(data.getIntExtra(KEY_RANK_STRING,0));
-				// a.setName(data.getStringExtra(KEY_NAME_STRING));
 				a.setFirstName(data.getStringExtra(KEY_FIRST_NAME_STRING));
 				a.setLastName(data.getStringExtra(KEY_LAST_NAME_STRING));
 				a.setMainEvent(data.getStringExtra(KEY_MAIN_EVENT_STRING));
@@ -173,16 +147,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
 				mCursorAdapter.changeCursor(cursor);
 				lapMap = new HashMap<String, List<String>>();
-				// for(int i=0;i<mCursorAdapter.getCursor().getCount();i++){
-				// lapMap.put(mCursorAdapter.getCursor().getString(0)+" "+mCursorAdapter.getCursor().getString(1),
-				// new ArrayList<String>());
-				// }TODO: FIX THIS!!!!!!
-				// int size = athleteArray.size();
-				// int rank = data.getIntExtra(KEY_RANK_STRING,
-				// size);
-				// String name = data.getStringExtra(KEY_NAME_STRING);
-				// athleteArray.add((rank-1 <= size ? rank-1 : size), name);
-				// adapter.notifyDataSetChanged();
 			} else {
 				Log.d(CRT, "Result not okay. User hit back w/o a button");
 			}
@@ -251,31 +215,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		return false;
 	}
 
-	// private Athlete getAthlete(long id){
-	// return mAthleteDataAdapter.getAthlete(id);
-	// }
-	//
-	// private void editAthlete(Athlete a){
-	// mAthleteDataAdapter.updateAthlete(a);
-	// Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
-	// mCursorAdapter.changeCursor(cursor);
-	// }
-	//
-	// private void removeAthlete(long id){
-	// mAthleteDataAdapter.removeAthlete(id);
-	// Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
-	// mCursorAdapter.changeCursor(cursor);
-	// }
-
-	public void stop(View v) {
-		lap(v);
-		Button button = (Button) v.findViewById(R.id.lapButton);
-		// if(button!=null){
-		// button.setEnabled(false);
-		// }
+	public void stop(View v, long id) {
+		lap(v, id);
 	}
 
-	public void lap(View v) {
+	public void lap(View v, long id) {
 		Log.d(CRT, "Lap called");
 		TextView first = (TextView) v.findViewById(R.id.athleteFirstNameText);
 		if (first != null) {
@@ -283,26 +227,34 @@ public class MainActivity extends Activity implements OnClickListener {
 			String lastName = ((TextView) v
 					.findViewById(R.id.athleteLastNameText)).getText()
 					.toString();
-			lapMap.get(firstName + " " + lastName).add(stopWatch.getTime());
+			lapMap.get(firstName + " " + lastName).add(stopWatch.getLap());
 			Log.d(CRT, lapMap.toString());
+			Athlete a = mAthleteDataAdapter.getAthlete(id);
+			mAthleteDataAdapter.removeAthlete(id);
+			mAthleteDataAdapter.addAthlete(a);
+			mCursorAdapter
+					.changeCursor(mAthleteDataAdapter.getAthletesCursor());
 		}
+
 	}
 
 	// Method to Create CSV File
 	private void writeCsvData(Map<String, List<String>> data)
 			throws IOException {
 		StringBuilder builder = new StringBuilder();
-		Iterator<Map.Entry<String,List<String>>> iter = data.entrySet().iterator();
-		while(iter.hasNext()){
-			Map.Entry<String,List<String>> pair = (Map.Entry<String,List<String>>)iter.next();
+		Iterator<Map.Entry<String, List<String>>> iter = data.entrySet()
+				.iterator();
+		while (iter.hasNext()) {
+			Map.Entry<String, List<String>> pair = (Map.Entry<String, List<String>>) iter
+					.next();
 			builder.append(pair.getKey());
-			for(String lap : pair.getValue()){
+			for (String lap : pair.getValue()) {
 				builder.append(", ");
 				builder.append(lap);
 			}
 			builder.append("\n");
 			iter.remove();
-			
+
 		}
 		writer.write(builder.toString());
 	}

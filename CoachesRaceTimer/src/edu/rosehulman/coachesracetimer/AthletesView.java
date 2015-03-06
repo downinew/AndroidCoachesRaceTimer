@@ -3,9 +3,9 @@ package edu.rosehulman.coachesracetimer;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,23 +16,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-public class AthletesView extends ListActivity {
+public class AthletesView extends Activity implements OnClickListener {
 	public static final String NEW = "NEW";
 	public static final String EDIT = "EDIT";
 	public static final String EDIT_OR_NEW = "EDIT_OR_NEW";
@@ -71,12 +68,15 @@ public class AthletesView extends ListActivity {
 	private AthleteDataAdapter mAthleteDataAdapter;
 	private SimpleCursorAdapter mCursorAdapter;
 	private long mSelectedId = NO_ID_SELECTED;
+	private Button addAthletesButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_athletes_view);
 
+		addAthletesButton = (Button) findViewById(R.id.add_athlete_to_team_button);
+		addAthletesButton.setOnClickListener(this);
 		mAthleteDataAdapter = new AthleteDataAdapter(this);
 		mAthleteDataAdapter.open();
 		Cursor cursor = mAthleteDataAdapter.getAthletesCursor();
@@ -88,87 +88,101 @@ public class AthletesView extends ListActivity {
 				R.id.mainEvent, R.id.pr };
 		mCursorAdapter = new AthleteManagerCursorAdapter(this,
 				R.layout.athlete_list_item, cursor, fromColumns, toTextViews, 0);
+		ListView listView = (ListView) findViewById(android.R.id.list);
 		mCursorAdapter.getCursor().moveToFirst();
-		setListAdapter(mCursorAdapter);
-		getListView().setLongClickable(true);
-		getListView().setOnItemLongClickListener(new OnItemLongClickListener(){
+		listView.setAdapter(mCursorAdapter);
+		listView.setLongClickable(true);
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				final TextView fName = (TextView) view.findViewById(R.id.firstName);
-				final TextView lName = (TextView) view.findViewById(R.id.lastName);
-				AlertDialog.Builder builder = new AlertDialog.Builder(AthletesView.this);
-				builder.setTitle("Delete "+fName.getText().toString()+" "+lName.getText().toString()+" from roster?");
-				builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+				final TextView fName = (TextView) view
+						.findViewById(R.id.firstName);
+				final TextView lName = (TextView) view
+						.findViewById(R.id.lastName);
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						AthletesView.this);
+				builder.setTitle("Delete " + fName.getText().toString() + " "
+						+ lName.getText().toString() + " from roster?");
+				builder.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-						Cursor c = mCursorAdapter.getCursor();
-						c.moveToFirst();
-						int iD=-1;
-						if (c.getCount() > 0) {
-							do {
-								if (c.getString(
-										c.getColumnIndex(AthleteDataAdapter.KEY_FIRST_NAME))
-										.equals(fName.getText().toString())
-										&& c.getString(
-												c.getColumnIndex(AthleteDataAdapter.KEY_LAST_NAME))
-												.equals(lName.getText().toString())) {
-									iD=c.getInt(c.getColumnIndex(AthleteDataAdapter.KEY_ID));
-									break;
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+								Cursor c = mCursorAdapter.getCursor();
+								c.moveToFirst();
+								int iD = -1;
+								if (c.getCount() > 0) {
+									do {
+										if (c.getString(
+												c.getColumnIndex(AthleteDataAdapter.KEY_FIRST_NAME))
+												.equals(fName.getText()
+														.toString())
+												&& c.getString(
+														c.getColumnIndex(AthleteDataAdapter.KEY_LAST_NAME))
+														.equals(lName.getText()
+																.toString())) {
+											iD = c.getInt(c
+													.getColumnIndex(AthleteDataAdapter.KEY_ID));
+											break;
+										}
+									} while (c.moveToNext());
 								}
-							} while (c.moveToNext());
-						}
-						removeAthlete(iD);
-						String[] fromColumns = new String[] {
-								AthleteDataAdapter.KEY_FIRST_NAME,
-								AthleteDataAdapter.KEY_LAST_NAME,
-								AthleteDataAdapter.KEY_MAIN_EVENT, AthleteDataAdapter.KEY_PR };
-						int[] toTextViews = new int[] { R.id.firstName, R.id.lastName,
-								R.id.mainEvent, R.id.pr };
-						mCursorAdapter = new AthleteManagerCursorAdapter(AthletesView.this,
-								R.layout.athlete_list_item, mAthleteDataAdapter.getAthletesCursor(), fromColumns, toTextViews, 0);
-						Log.d(MainActivity.CRT,"Called remove");
-					}
-					
-				});
-				builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
+								removeAthlete(iD);
+								String[] fromColumns = new String[] {
+										AthleteDataAdapter.KEY_FIRST_NAME,
+										AthleteDataAdapter.KEY_LAST_NAME,
+										AthleteDataAdapter.KEY_MAIN_EVENT,
+										AthleteDataAdapter.KEY_PR };
+								int[] toTextViews = new int[] { R.id.firstName,
+										R.id.lastName, R.id.mainEvent, R.id.pr };
+								mCursorAdapter = new AthleteManagerCursorAdapter(
+										AthletesView.this,
+										R.layout.athlete_list_item,
+										mAthleteDataAdapter.getAthletesCursor(),
+										fromColumns, toTextViews, 0);
+								Log.d(MainActivity.CRT, "Called remove");
+							}
+
+						});
+				builder.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+							}
+						});
 				AlertDialog dialog = builder.create();
 				dialog.show();
 				return true;
 			}
-			
+
 		});
-		getListView().setOnItemClickListener(new OnItemClickListener(){
+		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				mSelectedId=id;
-				Intent newAthleteIntent = new Intent(AthletesView.this, NewAthleteActivity.class);
+				mSelectedId = id;
+				Intent newAthleteIntent = new Intent(AthletesView.this,
+						NewAthleteActivity.class);
 				newAthleteIntent.putExtra(EDIT_OR_NEW, EDIT);
-				newAthleteIntent.putExtra("FIRST_NAME", ((TextView) view.findViewById(R.id.firstName)).getText()
-						.toString());
-				newAthleteIntent.putExtra("LAST_NAME", ((TextView) view.findViewById(R.id.lastName)).getText()
-						.toString());
-				newAthleteIntent.putExtra("MAIN_EVENT", ((TextView) view.findViewById(R.id.mainEvent)).getText()
-						.toString());
-//				EditText hr = (EditText) l.findViewById(R.id.hourPicker);
-//				EditText min = (EditText) l.findViewById(R.id.minutePicker);
-//				EditText sec = (EditText) l.findViewById(R.id.secondPicker);
-//				EditText ms = (EditText) l.findViewById(R.id.millisecondPicker);
-				newAthleteIntent.putExtra("PR",((TextView) view.findViewById(R.id.pr)).getText().toString());
+				newAthleteIntent.putExtra("FIRST_NAME", ((TextView) view
+						.findViewById(R.id.firstName)).getText().toString());
+				newAthleteIntent.putExtra("LAST_NAME", ((TextView) view
+						.findViewById(R.id.lastName)).getText().toString());
+				newAthleteIntent.putExtra("MAIN_EVENT", ((TextView) view
+						.findViewById(R.id.mainEvent)).getText().toString());
+				newAthleteIntent.putExtra("PR", ((TextView) view
+						.findViewById(R.id.pr)).getText().toString());
 				startActivityForResult(newAthleteIntent,
 						MainActivity.REQUEST_CODE_NEW_ATHLETE);
 			}
-			
+
 		});
 	}
 
@@ -203,66 +217,54 @@ public class AthletesView extends ListActivity {
 		return false;
 	}
 
-//	@Override
-//	protected void onListItemClick(ListView l, View v, int position, long id) {
-//		super.onListItemClick(l, v, position, id);
-//		mSelectedId = id;
-//		Log.d(MainActivity.CRT,""+position);
-//		Intent newAthleteIntent = new Intent(this, NewAthleteActivity.class);
-//		newAthleteIntent.putExtra(EDIT_OR_NEW, EDIT);
-//		newAthleteIntent.putExtra("FIRST_NAME", ((TextView) l.findViewById(R.id.firstName)).getText()
-//				.toString());
-//		newAthleteIntent.putExtra("LAST_NAME", ((TextView) l.findViewById(R.id.lastName)).getText()
-//				.toString());
-//		newAthleteIntent.putExtra("MAIN_EVENT", ((TextView) l.findViewById(R.id.mainEvent)).getText()
-//				.toString());
-////		EditText hr = (EditText) l.findViewById(R.id.hourPicker);
-////		EditText min = (EditText) l.findViewById(R.id.minutePicker);
-////		EditText sec = (EditText) l.findViewById(R.id.secondPicker);
-////		EditText ms = (EditText) l.findViewById(R.id.millisecondPicker);
-//		newAthleteIntent.putExtra("PR",((TextView) l.findViewById(R.id.pr)).getText().toString());
-//		startActivityForResult(newAthleteIntent,
-//				MainActivity.REQUEST_CODE_NEW_ATHLETE);
-//
-//		// DialogFragment df = new AthleteDialogFragment();
-//		// df.show(getFragmentManager(), "");
-//	}
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode==MainActivity.REQUEST_CODE_NEW_ATHLETE&&resultCode==RESULT_OK){
+		if (requestCode == MainActivity.REQUEST_CODE_NEW_ATHLETE
+				&& resultCode == RESULT_OK) {
 			Athlete a = new Athlete();
-			a.setFirstName(data.getStringExtra(MainActivity.KEY_FIRST_NAME_STRING));
-			a.setLastName(data.getStringExtra(MainActivity.KEY_LAST_NAME_STRING));
-			a.setMainEvent(data.getStringExtra(MainActivity.KEY_MAIN_EVENT_STRING));
+			a.setFirstName(data
+					.getStringExtra(MainActivity.KEY_FIRST_NAME_STRING));
+			a.setLastName(data
+					.getStringExtra(MainActivity.KEY_LAST_NAME_STRING));
+			a.setMainEvent(data
+					.getStringExtra(MainActivity.KEY_MAIN_EVENT_STRING));
 			a.setPR(data.getStringExtra(MainActivity.KEY_PR_STRING));
-			editAthlete(a);
+			if (mSelectedId == NO_ID_SELECTED) {
+				addAthlete(a);
+			} else {
+				editAthlete(a);
+			}
 			String[] fromColumns = new String[] {
 					AthleteDataAdapter.KEY_FIRST_NAME,
 					AthleteDataAdapter.KEY_LAST_NAME,
-					AthleteDataAdapter.KEY_MAIN_EVENT, AthleteDataAdapter.KEY_PR };
+					AthleteDataAdapter.KEY_MAIN_EVENT,
+					AthleteDataAdapter.KEY_PR };
 			int[] toTextViews = new int[] { R.id.firstName, R.id.lastName,
 					R.id.mainEvent, R.id.pr };
 			mCursorAdapter = new AthleteManagerCursorAdapter(AthletesView.this,
-					R.layout.athlete_list_item, mAthleteDataAdapter.getAthletesCursor(), fromColumns, toTextViews, 0);
+					R.layout.athlete_list_item,
+					mAthleteDataAdapter.getAthletesCursor(), fromColumns,
+					toTextViews, 0);
 		}
 	}
-	
+
+	private void addAthlete(Athlete currentAthlete) {
+		mAthleteDataAdapter.addAthlete(currentAthlete);
+		mCursorAdapter.changeCursor(mAthleteDataAdapter.getAthletesCursor());
+	}
+
 	private void editAthlete(Athlete currentAthlete) {
-		if(mSelectedId!=NO_ID_SELECTED){
 		currentAthlete.setId(mSelectedId);
 		mAthleteDataAdapter.updateAthlete(currentAthlete);
-		mCursorAdapter.changeCursor(mAthleteDataAdapter
-				.getAthletesCursor());
-		}
+		mCursorAdapter.changeCursor(mAthleteDataAdapter.getAthletesCursor());
 	}
-	
-	public void removeAthlete(long id){
-		if(mAthleteDataAdapter.removeAthlete(id)){
-			Log.d(MainActivity.CRT,"Removed athlete");
-		}else{
-			Log.d(MainActivity.CRT,"Failed to remove athlete");
+
+	public void removeAthlete(long id) {
+		if (mAthleteDataAdapter.removeAthlete(id)) {
+			Log.d(MainActivity.CRT, "Removed athlete");
+		} else {
+			Log.d(MainActivity.CRT, "Failed to remove athlete");
 		}
 		mCursorAdapter.changeCursor(mAthleteDataAdapter.getAthletesCursor());
 	}
@@ -290,9 +292,6 @@ public class AthletesView extends ListActivity {
 					.findViewById(R.id.last_name_edit_text);
 			final Spinner event = (Spinner) view
 					.findViewById(R.id.event_spinner);
-			// event.setAdapter(new ArrayAdapter<String>(this,
-			// android.R.layout.simple_spinner_item, eventList));
-
 			firstName.setText(currentAthlete.getFirstName());
 			lastName.setText(currentAthlete.getLastName());
 			SpinnerAdapter adapter = event.getAdapter();
@@ -303,11 +302,6 @@ public class AthletesView extends ListActivity {
 					break;
 				}
 			}
-
-			// List<String> eventList = new ArrayList<String>();
-			// SpinnerAdapter adapter = new SimpleAdapter(null, null, position,
-			// null, null);
-
 			confirmButton.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -316,15 +310,11 @@ public class AthletesView extends ListActivity {
 					currentAthlete.setLastName(lastName.getText().toString());
 					currentAthlete.setMainEvent(event.getSelectedItem()
 							.toString());
-					// Toast.makeText(AthletesView.this,"Updated "+firstNameText+" "+lastNameText+"'s information",Toast.LENGTH_SHORT).show();
 					if (mSelectedId == NO_ID_SELECTED) {
 						addAthlete(currentAthlete);
 					} else {
 						editAthlete(currentAthlete);
 					}
-					// currentAthlete.setName(firstNameText+" "+lastNameText);
-					// currentAthlete.setMainEvent(event.getSelectedItem().toString());
-					// currentAthlete.setId(mSelectedId);
 
 					dismiss();
 				}
@@ -355,6 +345,19 @@ public class AthletesView extends ListActivity {
 
 			return view;
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v.getId() == R.id.add_athlete_to_team_button) {
+			mSelectedId = NO_ID_SELECTED;
+			Intent newAthleteIntent = new Intent(this, NewAthleteActivity.class);
+			newAthleteIntent.putExtra(AthletesView.EDIT_OR_NEW,
+					AthletesView.NEW);
+			startActivityForResult(newAthleteIntent,
+					MainActivity.REQUEST_CODE_NEW_ATHLETE);
+		}
+		Log.d("CRT", "Click");
 	}
 
 }

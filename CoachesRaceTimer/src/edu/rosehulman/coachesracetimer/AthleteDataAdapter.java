@@ -56,7 +56,7 @@ public class AthleteDataAdapter {
 	public Athlete getAthlete(long id){
 		String[] projection = new String[]{KEY_ID,KEY_FIRST_NAME,KEY_LAST_NAME,KEY_MAIN_EVENT,KEY_PR};
 		String selection = KEY_ID+" = "+id;
-		Cursor c = mDatabase.query(TABLE_NAME, projection,selection,null,null,null,null,KEY_PR+"ASC");
+		Cursor c = mDatabase.query(TABLE_NAME, projection,selection,null,null,null,KEY_PR+" ASC");
 		if(c!=null&&c.moveToFirst()){
 			return getAthleteFromCursor(c);
 		}
